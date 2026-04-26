@@ -72,9 +72,7 @@ function ExperimentScreen({ round, onFinishRound }) {
     return (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
             <h2>
-                <h2>
                     Round {round} | Image {currentIndex + 1} of {images.length}
-                </h2>
             </h2>
 
             <div style={{ marginBottom: "10px" }}>

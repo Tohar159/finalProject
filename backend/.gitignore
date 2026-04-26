@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 test_answers.json
 answers_real.json
+.idea/
+*.iml

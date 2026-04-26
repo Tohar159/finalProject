@@ -14,13 +14,30 @@ function App() {
         setScreen("experiment");
     }
 
+    function sendAnswersToServer(answers) {
+        fetch("http://127.0.0.1:8000/answers", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(answers),
+        })
+            .then((res) => res.json())
+            .then((data) => console.log("Server response:", data))
+            .catch((error) => console.error("Error sending answers:", error));
+    }
+
     function finishRound(roundAnswers) {
-        setAllAnswers((prev) => [...prev, ...roundAnswers]);
+        console.log("🔥 finishRound called", round);
+        const updatedAnswers = [...allAnswers, ...roundAnswers];
+        setAllAnswers(updatedAnswers);
 
         if (round === 1) {
             setRound(2);
             setScreen("roundIntro");
         } else {
+            sendAnswersToServer(updatedAnswers);
+            console.log("🔥 sending to server", updatedAnswers);
             setScreen("summary");
         }
     }
@@ -50,9 +67,7 @@ function App() {
                 <ExperimentScreen round={round} onFinishRound={finishRound} />
             )}
 
-            {screen === "summary" && (
-                <SummaryScreen answers={allAnswers} />
-            )}
+            {screen === "summary" && <SummaryScreen answers={allAnswers} />}
         </>
     );
 }
