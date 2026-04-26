@@ -1,25 +1,8 @@
 import { useState, useEffect } from "react";
 
-
-const images = [
-    {
-        id: 1,
-        src: "https://images.unsplash.com/photo-1546182990-dffeafbe841d",
-        label: "real",
-    },
-    {
-        id: 2,
-        src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-        label: "real",
-    },
-    {
-        id: 3,
-        src: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131",
-        label: "real",
-    },
-];
-
 function ExperimentScreen({ round, onFinishRound }) {
+    const [images, setImages] = useState([]); // במקום המערך הקבוע
+
     const [reason, setReason] = useState("");
     const [confidence, setConfidence] = useState(50);
     const isTimed = round === 1;
@@ -29,8 +12,15 @@ function ExperimentScreen({ round, onFinishRound }) {
     const [time, setTime] = useState(TIME_LIMIT);
     const [selected, setSelected] = useState(null);
 
-    const currentImage = images[currentIndex];
+    // 🔥 מביא תמונות מהבקנד
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/images")
+            .then((res) => res.json())
+            .then((data) => setImages(data))
+            .catch((err) => console.error("Error loading images:", err));
+    }, []);
 
+    // טיימר
     useEffect(() => {
         if (isTimed && time > 0) {
             const timer = setTimeout(() => {
@@ -41,12 +31,19 @@ function ExperimentScreen({ round, onFinishRound }) {
         }
     }, [time]);
 
+    // 🛑 אם עדיין אין תמונות
+    if (images.length === 0) {
+        return <div>Loading images...</div>;
+    }
+
+    const currentImage = images[currentIndex];
+
     function handleNext() {
 
-        const correctAnswer = currentImage.label;
+        const correctAnswer = currentImage.image_type;
 
         const newAnswer = {
-            imageId: currentImage.id,
+            imageId: currentImage.image_id,
             selected: selected,
             correct: correctAnswer,
             isCorrect: selected === correctAnswer,
@@ -72,7 +69,7 @@ function ExperimentScreen({ round, onFinishRound }) {
     return (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
             <h2>
-                    Round {round} | Image {currentIndex + 1} of {images.length}
+                Round {round} | Image {currentIndex + 1} of {images.length}
             </h2>
 
             <div style={{ marginBottom: "10px" }}>
@@ -80,7 +77,7 @@ function ExperimentScreen({ round, onFinishRound }) {
             </div>
 
             <img
-                src={currentImage.src}
+                src={currentImage.image_url} // 🔥 שינוי חשוב
                 alt="test"
                 style={{
                     width: "400px",
@@ -100,7 +97,8 @@ function ExperimentScreen({ round, onFinishRound }) {
                 <button
                     onClick={() => setSelected("fake")}
                     disabled={isTimed && time === 0}
-                 style={{ marginLeft: "10px" }}>
+                    style={{ marginLeft: "10px" }}
+                >
                     Fake
                 </button>
             </div>
@@ -136,10 +134,7 @@ function ExperimentScreen({ round, onFinishRound }) {
                 Next
             </button>
         </div>
-
-
     );
-
 }
 
 export default ExperimentScreen;
