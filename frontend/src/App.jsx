@@ -9,18 +9,24 @@ function App() {
     const [screen, setScreen] = useState("start");
     const [round, setRound] = useState(1);
     const [allAnswers, setAllAnswers] = useState([]);
+    const [participantId, setParticipantId] = useState(null);
 
     function startRound() {
         setScreen("experiment");
     }
 
     function sendAnswersToServer(answers) {
+        console.log("participantId:", participantId);
+        console.log("answers sent:", answers);
         fetch("http://127.0.0.1:8000/answers", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(answers),
+            body: JSON.stringify({
+                participantId: participantId,
+                answers: answers,
+            }),
         })
             .then((res) => res.json())
             .then((data) => console.log("Server response:", data))
@@ -28,7 +34,6 @@ function App() {
     }
 
     function finishRound(roundAnswers) {
-        console.log("🔥 finishRound called", round);
         const updatedAnswers = [...allAnswers, ...roundAnswers];
         setAllAnswers(updatedAnswers);
 
@@ -37,7 +42,6 @@ function App() {
             setScreen("roundIntro");
         } else {
             sendAnswersToServer(updatedAnswers);
-            console.log("🔥 sending to server", updatedAnswers);
             setScreen("summary");
         }
     }
@@ -51,7 +55,8 @@ function App() {
             {screen === "form" && (
                 <RegistrationForm
                     onBack={() => setScreen("start")}
-                    onStart={() => {
+                    onParticipantCreated={(id) => {
+                        setParticipantId(id);
                         setRound(1);
                         setAllAnswers([]);
                         setScreen("roundIntro");

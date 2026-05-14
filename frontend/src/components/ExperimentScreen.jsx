@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 
 function ExperimentScreen({ round, onFinishRound }) {
-    const [images, setImages] = useState([]); // במקום המערך הקבוע
-
+    const [images, setImages] = useState([]);
     const [reason, setReason] = useState("");
     const [confidence, setConfidence] = useState(50);
     const isTimed = round === 1;
@@ -12,7 +11,6 @@ function ExperimentScreen({ round, onFinishRound }) {
     const [time, setTime] = useState(TIME_LIMIT);
     const [selected, setSelected] = useState(null);
 
-    // 🔥 מביא תמונות מהבקנד
     useEffect(() => {
         fetch("http://127.0.0.1:8000/images")
             .then((res) => res.json())
@@ -20,7 +18,6 @@ function ExperimentScreen({ round, onFinishRound }) {
             .catch((err) => console.error("Error loading images:", err));
     }, []);
 
-    // טיימר
     useEffect(() => {
         if (isTimed && time > 0) {
             const timer = setTimeout(() => {
@@ -29,9 +26,8 @@ function ExperimentScreen({ round, onFinishRound }) {
 
             return () => clearTimeout(timer);
         }
-    }, [time]);
+    }, [time, isTimed]);
 
-    // 🛑 אם עדיין אין תמונות
     if (images.length === 0) {
         return <div>Loading images...</div>;
     }
@@ -39,30 +35,35 @@ function ExperimentScreen({ round, onFinishRound }) {
     const currentImage = images[currentIndex];
 
     function handleNext() {
+        if (!selected) {
+            alert("Please choose Real or Fake");
+            return;
+        }
 
-        const correctAnswer = currentImage.image_type;
+        const correctAnswer = currentImage.correct;
 
         const newAnswer = {
-            imageId: currentImage.image_id,
+            imageId: currentImage.imageId,
             selected: selected,
             correct: correctAnswer,
             isCorrect: selected === correctAnswer,
-            reason: reason,
-            confidence: confidence,
+            reason: reason || "",
+            confidence: Number(confidence),
             round: round,
         };
 
-        setAnswers([...answers, newAnswer]);
+        const updatedAnswers = [...answers, newAnswer];
+        setAnswers(updatedAnswers);
 
         if (currentIndex < images.length - 1) {
             setCurrentIndex(currentIndex + 1);
             setSelected(null);
             setReason("");
             setConfidence(50);
-            setTime(15);
+            setTime(TIME_LIMIT);
         } else {
-            console.log("All answers:", [...answers, newAnswer]);
-            onFinishRound([...answers, newAnswer]);
+            console.log("All answers:", updatedAnswers);
+            onFinishRound(updatedAnswers);
         }
     }
 
@@ -77,7 +78,7 @@ function ExperimentScreen({ round, onFinishRound }) {
             </div>
 
             <img
-                src={currentImage.image_url} // 🔥 שינוי חשוב
+                src={currentImage.imageUrl}
                 alt="test"
                 style={{
                     width: "400px",
@@ -127,10 +128,14 @@ function ExperimentScreen({ round, onFinishRound }) {
                     onChange={(e) => setConfidence(e.target.value)}
                 />
 
-                <p>{confidence}</p>
+                <p>{confidence}%</p>
             </div>
 
-            <button style={{ marginTop: "20px" }} onClick={handleNext}>
+            <button
+                style={{ marginTop: "20px" }}
+                onClick={handleNext}
+                disabled={!selected}
+            >
                 Next
             </button>
         </div>
