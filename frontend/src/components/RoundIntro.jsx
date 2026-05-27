@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "./RoundIntro.css";
 
 function RoundIntro({ round, onNext }) {
     useEffect(() => {
@@ -9,17 +10,29 @@ function RoundIntro({ round, onNext }) {
         return () => clearTimeout(timer);
     }, [onNext]);
 
+    const isTimed = round === 1;
+
     return (
-        <div style={{ textAlign: "center", marginTop: "150px" }}>
-            <h1>Round {round}</h1>
+        <div className="round-intro-page">
+            <div className="round-intro-content">
+                <h1 className="round-number">
+                    Round {round}
+                </h1>
 
-            <p>
-                {round === 1
-                    ? "Please note: this round is time-limited."
-                    : "Please note: this round is not time-limited."}
-            </p>
+                <h2 className="round-subtitle">
+                    {round === 1 ? "With Time Limit" : "Without Time Limit"}
+                </h2>
 
-            <p>Starting soon...</p>
+                <p className="round-description">
+                    {round === 1
+                        ? "Each image must be answered before the timer ends."
+                        : "You may inspect each image for as long as you wish."}
+                </p>
+
+                <p className="round-starting">
+                    Starting soon...
+                </p>
+            </div>
         </div>
     );
 }

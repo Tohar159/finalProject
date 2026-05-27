@@ -1,0 +1,42 @@
+.round-intro-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.round-intro-content {
+    text-align: center;
+    max-width: 620px;
+}
+
+.round-number {
+    margin-bottom: 12px;
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #111827;
+}
+
+.round-subtitle {
+    margin-top: 14px;
+    margin-bottom: 28px;
+    font-size: 28px;
+    font-weight: 650;
+    color: #6c63ff;
+}
+
+.round-description {
+    margin: 0 0 28px;
+    font-size: 19px;
+    line-height: 1.5;
+    color: #4b5563;
+}
+
+.round-starting {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #6b7280;
+}

@@ -1,0 +1,65 @@
+import { useEffect, useState } from "react";
+import "./AdminDashboard.css";
+
+function AdminDashboard({ onLogout }) {
+    const [stats, setStats] = useState(null);
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/admin/stats")
+            .then((res) => res.json())
+            .then((data) => setStats(data))
+            .catch((err) => console.error(err));
+    }, []);
+
+    if (!stats) {
+        return (
+            <div className="admin-dashboard-page">
+                <h2 className="dashboard-loading">Loading dashboard...</h2>
+            </div>
+        );
+    }
+
+    return (
+        <div className="admin-dashboard-page">
+            <div className="dashboard-header">
+                <div>
+                    <h1>Research Dashboard</h1>
+                    <p>Overview of experiment participation and performance.</p>
+                </div>
+
+                <button className="dashboard-logout-btn" onClick={onLogout}>
+                    Logout
+                </button>
+            </div>
+
+            <div className="dashboard-grid">
+                <div className="dashboard-card">
+                    <span className="dashboard-label">Participants</span>
+                    <strong>{stats.participants_count}</strong>
+                </div>
+
+                <div className="dashboard-card">
+                    <span className="dashboard-label">Total Answers</span>
+                    <strong>{stats.answers_count}</strong>
+                </div>
+
+                <div className="dashboard-card highlight-card">
+                    <span className="dashboard-label">Accuracy</span>
+                    <strong>{stats.accuracy}%</strong>
+                </div>
+
+                <div className="dashboard-card">
+                    <span className="dashboard-label">Avg Confidence</span>
+                    <strong>{stats.avg_confidence}</strong>
+                </div>
+
+                <div className="dashboard-card">
+                    <span className="dashboard-label">Avg Response Time</span>
+                    <strong>{stats.avg_response_time}s</strong>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default AdminDashboard;

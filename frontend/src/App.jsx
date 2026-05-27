@@ -4,6 +4,8 @@ import RegistrationForm from "./components/RegistrationForm";
 import RoundIntro from "./components/RoundIntro";
 import ExperimentScreen from "./components/ExperimentScreen";
 import SummaryScreen from "./components/SummaryScreen";
+import AdminLogin from "./components/AdminLogin";
+import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
     const [screen, setScreen] = useState("start");
@@ -46,10 +48,24 @@ function App() {
         }
     }
 
+    //מערך דמה
+    const mockAnswers = [
+        { round: 1, isCorrect: true },
+        { round: 1, isCorrect: true },
+        { round: 1, isCorrect: false },
+        { round: 1, isCorrect: true },
+        { round: 2, isCorrect: true },
+        { round: 2, isCorrect: false },
+        { round: 2, isCorrect: true },
+        { round: 2, isCorrect: true },
+    ];
     return (
         <>
             {screen === "start" && (
-                <StartScreen onContinue={() => setScreen("form")} />
+                <StartScreen
+                    onContinue={() => setScreen("form")}
+                    onAdminClick={() => setScreen("adminLogin")}
+                />
             )}
 
             {screen === "form" && (
@@ -62,6 +78,17 @@ function App() {
                         setScreen("roundIntro");
                     }}
                 />
+            )}
+
+            {screen === "adminLogin" && (
+                <AdminLogin
+                    onLoginSuccess={() => setScreen("adminDashboard")}
+                    onBack={() => setScreen("start")}
+                />
+            )}
+
+            {screen === "adminDashboard" && (
+                <AdminDashboard onLogout={() => setScreen("start")} />
             )}
 
             {screen === "roundIntro" && (
@@ -78,3 +105,4 @@ function App() {
 }
 
 export default App;
+
