@@ -142,3 +142,14 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 .idea/
+
+# Models
+*.pth
+*.pt
+
+# Datasets
+dataset/
+dataset_raw/
+
+# Generated outputs
+model_predictions.csv

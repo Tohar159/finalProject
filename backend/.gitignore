@@ -5,3 +5,17 @@ test_answers.json
 answers_real.json
 .idea/
 *.iml
+# Models
+*.pth
+*.pt
+
+# Datasets
+dataset/
+dataset_raw/
+
+# Generated outputs
+model_predictions.csv
+
+# OS files
+.DS_Store
+Thumbs.db
