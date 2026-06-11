@@ -46,22 +46,28 @@ def home():
     return {"message": "Backend is working"}
 
 class ParticipantCreate(BaseModel):
-    age: int | None = None
+    age: str | None = None
     gender: str | None = None
     country: str | None = None
+    education: str | None = None
+    aiUsage: str | None = None
+    consent: bool | None = None
 
 
 @app.post("/participants")
 def create_participant(participant: ParticipantCreate):
     with engine.connect() as conn:
         result = conn.execute(text("""
-             INSERT INTO participants (age, gender, country)
-             VALUES (:age, :gender, :country)
-             RETURNING participant_id
+            INSERT INTO participants (age, gender, country, education, ai_usage, consent)
+            VALUES (:age, :gender, :country, :education, :ai_usage, :consent)
+            RETURNING participant_id
          """), {
             "age": participant.age,
             "gender": participant.gender,
-            "country": participant.country
+            "country": participant.country,
+            "education": participant.education,
+            "ai_usage": participant.aiUsage,
+            "consent": participant.consent
         })
 
         participant_id = result.fetchone().participant_id
