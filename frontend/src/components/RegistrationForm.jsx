@@ -44,7 +44,9 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
             });
 
             const data = await response.json();
+            console.log("created participant:", data);
             onParticipantCreated(data.participant_id);
+
         } catch (err) {
             console.error("Error creating participant:", err);
             alert("There was a problem creating participant.");

@@ -19,6 +19,12 @@ function AdminDashboard({ onLogout }) {
         );
     }
 
+    const round1Accuracy =
+        stats.accuracy_by_round?.find((item) => item.round === 1)?.accuracy ?? 0;
+
+    const round2Accuracy =
+        stats.accuracy_by_round?.find((item) => item.round === 2)?.accuracy ?? 0;
+
     return (
         <div className="admin-dashboard-page">
             <div className="dashboard-header">
@@ -44,16 +50,26 @@ function AdminDashboard({ onLogout }) {
                 </div>
 
                 <div className="dashboard-card highlight-card">
-                    <span className="dashboard-label">Accuracy</span>
+                    <span className="dashboard-label">Overall Accuracy</span>
                     <strong>{stats.accuracy}%</strong>
                 </div>
 
                 <div className="dashboard-card">
-                    <span className="dashboard-label">Avg Confidence</span>
-                    <strong>{stats.avg_confidence}</strong>
+                    <span className="dashboard-label">Round 1 Accuracy</span>
+                    <strong>{round1Accuracy}%</strong>
                 </div>
 
                 <div className="dashboard-card">
+                    <span className="dashboard-label">Round 2 Accuracy</span>
+                    <strong>{round2Accuracy}%</strong>
+                </div>
+
+                <div className="dashboard-card">
+                    <span className="dashboard-label">Avg Confidence</span>
+                    <strong>{stats.avg_confidence}%</strong>
+                </div>
+
+                <div className="dashboard-card wide-card">
                     <span className="dashboard-label">Avg Response Time</span>
                     <strong>{stats.avg_response_time}s</strong>
                 </div>

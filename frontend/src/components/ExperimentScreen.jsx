@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { LuClock3 } from "react-icons/lu";
 import "./ExperimentScreen.css";
 
-function ExperimentScreen({ round, onFinishRound }) {
+function ExperimentScreen({ round, participantId, onFinishRound }) {
+    console.log("PARTICIPANT ID:", participantId);
     const TIME_LIMIT = 10;
     const isTimed = round === 1;
 
     const [images, setImages] = useState([]);
-    const [participantId, setParticipantId] = useState(null);
     const [answers, setAnswers] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -21,22 +21,14 @@ function ExperimentScreen({ round, onFinishRound }) {
     useEffect(() => {
         async function startExperiment() {
             try {
-                const participantResponse = await fetch("http://127.0.0.1:8000/participants", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        age: null,
-                        gender: null,
-                        country: null,
-                    }),
-                });
+                const usedImageIds = JSON.parse(
+                    localStorage.getItem("usedImageIds") || "[]"
+                );
 
-                const participantData = await participantResponse.json();
-                setParticipantId(participantData.participant_id);
-
-                const usedImageIds = JSON.parse(localStorage.getItem("usedImageIds") || "[]");
                 const excludeQuery =
-                    usedImageIds.length > 0 ? `?exclude=${usedImageIds.join(",")}` : "";
+                    usedImageIds.length > 0
+                        ? `?exclude=${usedImageIds.join(",")}`
+                        : "";
 
                 const imagesResponse = await fetch(
                     `http://127.0.0.1:8000/images/random${excludeQuery}`
@@ -45,6 +37,7 @@ function ExperimentScreen({ round, onFinishRound }) {
                 const imagesData = await imagesResponse.json();
 
                 console.log("Images from server:", imagesData);
+
                 setImages(imagesData);
                 setImageStartTime(Date.now());
             } catch (err) {
@@ -71,7 +64,7 @@ function ExperimentScreen({ round, onFinishRound }) {
         }
     }, [time, isTimed, selected, isSubmitting, images.length]);
 
-    if (images.length === 0 || participantId === null) {
+    if (images.length === 0) {
         return <div>Loading experiment...</div>;
     }
 
@@ -118,7 +111,9 @@ function ExperimentScreen({ round, onFinishRound }) {
                 setIsSubmitting(false);
             } else {
                 const currentRoundImageIds = images.map((img) => img.image_id);
-                const previousUsedIds = JSON.parse(localStorage.getItem("usedImageIds") || "[]");
+                const previousUsedIds = JSON.parse(
+                    localStorage.getItem("usedImageIds") || "[]"
+                );
 
                 localStorage.setItem(
                     "usedImageIds",
@@ -146,20 +141,17 @@ function ExperimentScreen({ round, onFinishRound }) {
     return (
         <div className="experiment-page">
             <div className="brand-logo">
-                <div className="sparkle sparkle-one"> ✦ </div>
-                <div className="sparkle sparkle-two"> ✦ </div>
+                <div className="sparkle sparkle-one">✦</div>
+                <div className="sparkle sparkle-two">✦</div>
 
                 <div className="brand-title">
-                    Real or <span>Fake? </span>
+                    Real or <span>Fake?</span>
                 </div>
 
-                <div className="brand-subtitle">
-                    Can you beat AI?
-                </div>
+                <div className="brand-subtitle">Can you beat AI?</div>
 
                 <div className="brand-underline"></div>
             </div>
-
 
             <div className="experiment-header">
                 <h2>
@@ -168,18 +160,16 @@ function ExperimentScreen({ round, onFinishRound }) {
 
                 {isTimed && (
                     <div className="timer">
-                    <div className="timer-top">
-                    <LuClock3 className="timer-icon" />
+                        <div className="timer-top">
+                            <LuClock3 className="timer-icon" />
 
-                    <span className="timer-number">
-                    00:{String(time).padStart(2, "0")}
-            </span>
-        </div>
+                            <span className="timer-number">
+                                00:{String(time).padStart(2, "0")}
+                            </span>
+                        </div>
 
-    <div className="timer-label">
-        Time left
-    </div>
-</div>
+                        <div className="timer-label">Time left</div>
+                    </div>
                 )}
             </div>
 
@@ -193,7 +183,6 @@ function ExperimentScreen({ round, onFinishRound }) {
                     />
                 ))}
             </div>
-
 
             <div className="experiment-card">
                 <h1 className="question-title">
@@ -209,7 +198,9 @@ function ExperimentScreen({ round, onFinishRound }) {
 
                 <div className="choice-buttons">
                     <button
-                        className={`choice-btn ${selected === "real" ? "selected" : ""}`}
+                        className={`choice-btn ${
+                            selected === "real" ? "selected" : ""
+                        }`}
                         onClick={() => setSelected("real")}
                         disabled={isSubmitting || (isTimed && time === 0)}
                     >
@@ -217,7 +208,9 @@ function ExperimentScreen({ round, onFinishRound }) {
                     </button>
 
                     <button
-                        className={`choice-btn ${selected === "fake" ? "selected" : ""}`}
+                        className={`choice-btn ${
+                            selected === "fake" ? "selected" : ""
+                        }`}
                         onClick={() => setSelected("fake")}
                         disabled={isSubmitting || (isTimed && time === 0)}
                     >
@@ -226,13 +219,15 @@ function ExperimentScreen({ round, onFinishRound }) {
                 </div>
 
                 <div className="confidence-section">
-                    <label className="confidence-title">How confident are you?</label>
+                    <label className="confidence-title">
+                        How confident are you?
+                    </label>
 
                     <div
                         className="confidence-slider-wrap"
                         style={{
                             "--confidence-percent": `${confidence}%`,
-                            "--confidence-number": confidence
+                            "--confidence-number": confidence,
                         }}
                     >
                         <span className="confidence-value">{confidence}%</span>
@@ -276,6 +271,6 @@ function ExperimentScreen({ round, onFinishRound }) {
             </div>
         </div>
     );
-
 }
+
 export default ExperimentScreen;

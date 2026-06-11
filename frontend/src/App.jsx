@@ -17,24 +17,6 @@ function App() {
         setScreen("experiment");
     }
 
-    function sendAnswersToServer(answers) {
-        console.log("participantId:", participantId);
-        console.log("answers sent:", answers);
-        fetch("http://127.0.0.1:8000/answers", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                participantId: participantId,
-                answers: answers,
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => console.log("Server response:", data))
-            .catch((error) => console.error("Error sending answers:", error));
-    }
-
     function finishRound(roundAnswers) {
         const updatedAnswers = [...allAnswers, ...roundAnswers];
         setAllAnswers(updatedAnswers);
@@ -43,22 +25,10 @@ function App() {
             setRound(2);
             setScreen("roundIntro");
         } else {
-            sendAnswersToServer(updatedAnswers);
             setScreen("summary");
         }
     }
 
-    //מערך דמה
-    const mockAnswers = [
-        { round: 1, isCorrect: true },
-        { round: 1, isCorrect: true },
-        { round: 1, isCorrect: false },
-        { round: 1, isCorrect: true },
-        { round: 2, isCorrect: true },
-        { round: 2, isCorrect: false },
-        { round: 2, isCorrect: true },
-        { round: 2, isCorrect: true },
-    ];
     return (
         <>
             {screen === "start" && (
@@ -72,6 +42,7 @@ function App() {
                 <RegistrationForm
                     onBack={() => setScreen("start")}
                     onParticipantCreated={(id) => {
+                        localStorage.removeItem("usedImageIds");
                         setParticipantId(id);
                         setRound(1);
                         setAllAnswers([]);
@@ -96,13 +67,18 @@ function App() {
             )}
 
             {screen === "experiment" && (
-                <ExperimentScreen round={round} onFinishRound={finishRound} />
+                <ExperimentScreen
+                    round={round}
+                    participantId={participantId}
+                    onFinishRound={finishRound}
+                />
             )}
 
-            {screen === "summary" && <SummaryScreen answers={allAnswers} />}
+            {screen === "summary" && (
+                <SummaryScreen answers={allAnswers} />
+            )}
         </>
     );
 }
 
 export default App;
-
