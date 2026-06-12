@@ -5,7 +5,7 @@ function AdminDashboard({ onLogout }) {
     const [stats, setStats] = useState(null);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/admin/stats")
+        fetch("https://deepfake-backend-ki3i.onrender.com/admin/stats")
             .then((res) => res.json())
             .then((data) => setStats(data))
             .catch((err) => console.error(err));

@@ -30,9 +30,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                         ? `?exclude=${usedImageIds.join(",")}`
                         : "";
 
-                const imagesResponse = await fetch(
-                    `http://127.0.0.1:8000/images/random${excludeQuery}`
-                );
+                const imagesResponse = await fetch(`https://deepfake-backend-ki3i.onrender.com/images/random${excludeQuery}`);
 
                 const imagesData = await imagesResponse.json();
 
@@ -78,7 +76,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
         const responseTimeSeconds = (Date.now() - imageStartTime) / 1000;
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/answers/check", {
+            const response = await fetch("https://deepfake-backend-ki3i.onrender.com/answers/check", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -191,7 +189,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                 </h1>
 
                 <img
-                    src={`http://127.0.0.1:8000/${currentImage.image_path}`}
+                    src={`https://deepfake-backend-ki3i.onrender.com/${currentImage.image_path}`}
                     alt="test"
                     className="experiment-image"
                 />

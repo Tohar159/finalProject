@@ -30,7 +30,7 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
         }
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/participants", {
+            const response = await fetch("https://deepfake-backend-ki3i.onrender.com/participants", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

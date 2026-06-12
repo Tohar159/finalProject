@@ -1,7 +1,10 @@
 import os
 from sqlalchemy import create_engine, text
 
-DATABASE_URL = "postgresql://postgres:159357@localhost:5432/deepfake_experiment"
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql://postgres:159357@localhost:5432/deepfake_experiment"
+)
 
 engine = create_engine(DATABASE_URL)
 
