@@ -2,15 +2,20 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
-from database import SessionLocal
-from sqlalchemy import create_engine, text
+from database import SessionLocal, engine
+from sqlalchemy import text
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-app.mount("/dataset", StaticFiles(directory="../dataset"), name="dataset")
-DATABASE_URL = "postgresql://postgres:159357@localhost:5432/deepfake_experiment"
-engine = create_engine(DATABASE_URL)
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+DATASET_DIR = BASE_DIR.parent / "dataset"
+
+if DATASET_DIR.exists():
+    app.mount("/dataset", StaticFiles(directory=str(DATASET_DIR)), name="dataset")
 
 app.add_middleware(
     CORSMiddleware,
