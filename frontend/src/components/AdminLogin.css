@@ -108,3 +108,12 @@
 .password-input::-ms-clear {
     display: none;
 }
+
+@media (max-width: 600px) {
+    .admin-login-title {
+        font-size: 38px;
+        line-height: 1.15px;
+        text-align: center;
+    }
+
+}
