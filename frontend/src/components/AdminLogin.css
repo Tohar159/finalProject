@@ -113,11 +113,19 @@
 
     .admin-login-page {
         align-items: flex-start;
-        padding-top: 140px;
+        padding-top: 80px;
     }
 
     .admin-login-title {
         line-height: 0.92;
+
+        html,
+        body,
+        #root {
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
     }
 
 }
