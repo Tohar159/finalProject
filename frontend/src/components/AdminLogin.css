@@ -110,10 +110,14 @@
 }
 
 @media (max-width: 600px) {
+
+    .admin-login-page {
+        align-items: flex-start;
+        padding-top: 140px;
+    }
+
     .admin-login-title {
-        font-size: 38px;
-        line-height: 1.15px;
-        text-align: center;
+        line-height: 0.92;
     }
 
 }
