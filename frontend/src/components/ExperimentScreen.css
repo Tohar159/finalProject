@@ -550,9 +550,9 @@ textarea:focus {
 
     .confidence-slider-wrap input[type="range"] {
         position: absolute;
-        top: 30px;
-        left: 40px;
-        width: calc(100% - 80px);
+        top: 33px;
+        left: 25px;
+        width: calc(100% - 50px);
         height: 32px;
         z-index: 10;
         pointer-events: auto;
@@ -566,7 +566,7 @@ textarea:focus {
     .confidence-value {
         top: 5px;
         font-size: 15px;
-        left: calc(52px + (100% - 104px) * var(--confidence-number) / 100);
+        left: calc(25px + (100% - 50px) * var(--confidence-number) / 100);
         pointer-events: none;
         z-index: 1;
     }
