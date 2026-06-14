@@ -429,199 +429,193 @@ textarea:focus {
     }
 }
 
+
 @media (max-width: 600px) {
-    .experiment-page {
-        min-height: 100vh;
-        height: auto;
-        overflow-y: auto;
-        padding: 8px 10px 18px;
-        display: flex;
-        flex-direction: column;
-    }
+        .experiment-page {
+            height: 100vh;
+            overflow: hidden;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .experiment-header {
-        max-width: 100%;
-        margin-bottom: 8px;
-        grid-template-columns: 1fr auto;
-        gap: 8px;
-    }
+        .experiment-header {
+            max-width: 100%;
+            margin-bottom: 8px;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+            flex-shrink: 0;
+        }
 
-    .experiment-header h2 {
-        grid-column: 1;
-        justify-self: center;
-        font-size: 15px;
-    }
+        .experiment-header h2 {
+            grid-column: 1;
+            justify-self: center;
+            font-size: 16px;
+        }
 
-    .timer {
-        grid-column: 2;
-        width: 92px;
-        height: 50px;
-        padding: 5px 8px;
-        border-radius: 16px;
-        transform: none;
-    }
+        .timer {
+            grid-column: 2;
+            width: 96px;
+            height: 54px;
+            padding: 6px 8px;
+            border-radius: 16px;
+            transform: none;
+        }
 
-    .timer-number {
-        font-size: 16px;
-    }
+        .timer-number {
+            font-size: 17px;
+        }
 
-    .timer-label {
-        font-size: 10px;
-    }
+        .timer-label {
+            font-size: 10px;
+        }
 
-    .progress-segments {
-        width: 100%;
-        gap: 6px;
-        margin: 6px auto 8px;
-    }
+        .progress-segments {
+            width: 100%;
+            gap: 6px;
+            margin: 6px auto 10px;
+            flex-shrink: 0;
+        }
 
-    .segment {
-        height: 8px;
-    }
+        .segment {
+            height: 8px;
+        }
 
-    .experiment-card {
-        width: 100%;
-        max-width: none;
-        padding: 12px 18px 14px;
-        border-radius: 22px;
-        display: block;
-    }
+        .experiment-card {
+            width: 100%;
+            max-width: none;
+            flex: 1;
+            padding: 14px 22px 16px;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .question-title {
-        font-size: 21px;
-        line-height: 1.1;
-        margin-bottom: 6px;
-    }
+        .question-title {
+            font-size: 24px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
 
-    .experiment-image {
-        width: 100%;
-        max-width: 250px;
-        height: 150px;
-        object-fit: contain;
-        margin: 0 auto 10px;
-        border-radius: 14px;
-    }
+        .experiment-image {
+            width: 100%;
+            max-width: 300px;
+            height: 210px;
+            object-fit: contain;
+            margin: 0 auto 14px;
+            border-radius: 14px;
+        }
 
-    .choice-buttons {
-        gap: 12px;
-        margin-bottom: 10px;
-    }
+        .choice-buttons {
+            gap: 14px;
+            margin-bottom: 14px;
+        }
 
-    .choice-btn {
-        width: 116px;
-        height: 42px;
-        font-size: 16px;
-        border-radius: 14px;
-    }
+        .choice-btn {
+            width: 135px;
+            height: 50px;
+            font-size: 17px;
+            border-radius: 14px;
+        }
 
-    .confidence-section {
-        max-width: 100%;
-        margin: 0 auto 8px;
-    }
+        .confidence-section {
+            width: 100%;
+            max-width: none;
+            margin: 0 auto 10px;
+        }
 
-    .confidence-title {
-        font-size: 17px;
-        margin-bottom: 0;
-    }
+        .confidence-title {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
 
-    .confidence-slider-wrap {
-        position: relative;
-        height: 54px;
-    }
+        .confidence-slider-wrap {
+            position: relative;
+            height: 58px;
+        }
 
-    .confidence-left,
-    .confidence-right {
-        top: 31px;
-        font-size: 11px;
-        line-height: 14px;
-        pointer-events: none;
-        z-index: 1;
-    }
+        .confidence-left,
+        .confidence-right {
+            top: 34px;
+            font-size: 13px;
+            line-height: 14px;
+            pointer-events: none;
+        }
 
-    .confidence-left {
-        left: 0;
-        font-size: 11px;
-    }
+        .confidence-left {
+            left: 0;
+        }
 
-    .confidence-right {
-        right: 0;
-        font-size: 11px;
-    }
+        .confidence-right {
+            right: 0;
+        }
 
-    .confidence-slider-wrap input[type="range"] {
-        position: absolute;
-        top: 33px;
-        left: 25px;
-        width: calc(100% - 50px);
-        height: 32px;
-        z-index: 10;
-        pointer-events: auto;
-    }
+        .confidence-slider-wrap input[type="range"] {
+            position: absolute;
+            top: 36px;
+            left: 80px;
+            width: calc(100% - 160px);
+            height: 6px;
+            z-index: 5;
+        }
 
-    .confidence-slider-wrap input[type="range"]::-webkit-slider-thumb {
-        width: 28px;
-        height: 28px;
-    }
+        .confidence-slider-wrap input[type="range"]::-webkit-slider-thumb {
+            width: 26px;
+            height: 26px;
+        }
 
-    .confidence-value {
-        top: 5px;
-        font-size: 15px;
-        left: calc(25px + (100% - 50px) * var(--confidence-number) / 100);
-        pointer-events: none;
-        z-index: 1;
-    }
-    .form-section {
-        max-width: 100%;
-        margin-top: 4px;
-    }
+        .confidence-value {
+            top: 6px;
+            font-size: 16px;
+            left: calc(80px + (100% - 160px) * var(--confidence-number) / 100);
+            pointer-events: none;
+        }
 
-    .form-section label {
-        font-size: 17px;
-        line-height: 1.15;
-    }
+        .form-section {
+            width: 100%;
+            max-width: none;
+            margin-top: 4px;
+        }
 
-    .optional-text {
-        display: inline;
-        margin-left: 5px;
-        font-size: 13px;
-    }
+        .form-section label {
+            font-size: 19px;
+            line-height: 1.15;
+        }
 
+        .optional-text {
+            display: inline;
+            margin-left: 5px;
+            font-size: 14px;
+        }
 
-    textarea {
-        height: 54px;
-        min-height: 54px;
-        padding: 9px 12px;
-        font-size: 14px;
-        border-radius: 16px;
-    }
+        textarea {
+            height: 62px;
+            min-height: 62px;
+            padding: 10px 14px;
+            font-size: 15px;
+            border-radius: 16px;
+        }
 
-    .next-btn {
-        margin-top: 8px;
-        padding: 9px 50px;
-        font-size: 17px;
-        border-radius: 16px;
-    }
+        .next-btn {
+            margin-top: 12px;
+            padding: 11px 64px;
+            font-size: 18px;
+            border-radius: 18px;
+            align-self: center;
+        }
 
-    .choice-btn:hover {
-        border-color: #dfe3eb;
-        background: #ffffff;
-        box-shadow: none;
-        color: #1f2937;
-    }
+        .choice-btn:hover {
+            border-color: #dfe3eb;
+            background: #ffffff;
+            box-shadow: none;
+            color: #1f2937;
+        }
 
-    .choice-btn.selected,
-    .choice-btn.selected:hover {
-        border-color: #6c63ff;
-        background: #f1efff;
-        color: #6c63ff;
-        box-shadow: 0 8px 20px rgba(108, 99, 255, 0.16);
+        .choice-btn.selected,
+        .choice-btn.selected:hover {
+            border-color: #6c63ff;
+            background: #f1efff;
+            color: #6c63ff;
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.16);
+        }
     }
-
-    .choice-btn:focus {
-        outline: none;
-    }
-
-    .choice-btn:active {
-        transform: none;
-    }
-}
