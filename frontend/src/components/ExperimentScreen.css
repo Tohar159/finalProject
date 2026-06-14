@@ -443,7 +443,7 @@ textarea:focus {
             max-width: 100%;
             margin-bottom: 8px;
             grid-template-columns: 1fr auto;
-            gap: 8px;
+            gap: 18px;
             flex-shrink: 0;
         }
 
@@ -455,11 +455,12 @@ textarea:focus {
 
         .timer {
             grid-column: 2;
+            justify-self: end;
             width: 96px;
             height: 54px;
             padding: 6px 8px;
             border-radius: 16px;
-            transform: none;
+            transform: translateX(8px);
         }
 
         .timer-number {
@@ -553,8 +554,8 @@ textarea:focus {
         .confidence-slider-wrap input[type="range"] {
             position: absolute;
             top: 36px;
-            left: 80px;
-            width: calc(100% - 160px);
+            left: 95px;
+            width: calc(100% - 190px);
             height: 6px;
             z-index: 5;
         }
@@ -567,7 +568,7 @@ textarea:focus {
         .confidence-value {
             top: 6px;
             font-size: 16px;
-            left: calc(80px + (100% - 160px) * var(--confidence-number) / 100);
+            left: calc(95px + (100% - 190px) * var(--confidence-number) / 100);
             pointer-events: none;
         }
 
