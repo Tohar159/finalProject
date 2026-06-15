@@ -97,3 +97,9 @@
     font-weight: 750;
     color: #111827;
 }
+
+@media (max-width: 600px) {
+    .summary-title {
+        line-height: 1.1;
+    }
+}
