@@ -63,7 +63,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
     }, [time, isTimed, selected, isSubmitting, images.length]);
 
     if (images.length === 0) {
-        return <div>Loading experiment...</div>;
+        return null;
     }
 
     const currentImage = images[currentIndex];

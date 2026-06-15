@@ -40,3 +40,9 @@
     font-weight: 600;
     color: #6b7280;
 }
+
+@media (max-width: 600px) {
+    .round-intro-content {
+        transform: translateY(-35px);
+    }
+}
