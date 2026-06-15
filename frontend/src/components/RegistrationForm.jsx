@@ -1,5 +1,4 @@
 import { useState } from "react";
-import countryList from "country-list";
 import "./RegistrationForm.css";
 
 function RegistrationForm({ onBack, onParticipantCreated }) {
@@ -12,8 +11,26 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
     const [showValidationError, setShowValidationError] = useState(false);
 
     const countries = [
-        "Israel",
-        ...countryList.getNames().filter((name) => name !== "Israel").sort()
+        "United States",
+        "United Kingdom",
+        "Canada",
+        "Australia",
+        "Germany",
+        "France",
+        "Spain",
+        "Israel ⭐",
+        "Italy",
+        "Netherlands",
+        "Sweden",
+        "India",
+        "Thailand",
+        "China",
+        "Japan",
+        "Brazil",
+        "Mexico",
+        "Argentina",
+        "South Africa",
+        "Other"
     ];
 
     const isFormValid =
