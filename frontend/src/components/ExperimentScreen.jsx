@@ -189,8 +189,8 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                 </h1>
 
                 <img
-                    src={`https://deepfake-backend-ki3i.onrender.com/${currentImage.image_path}`}
-                    alt="test"
+                    src={`https://deepfake-backend-ki3i.onrender.com/dataset/${currentImage.image_path.replaceAll("\\", "/")}`}
+                    alt="experiment"
                     className="experiment-image"
                 />
 
@@ -253,10 +253,19 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
 
                     <textarea
                         value={reason}
-                        onChange={(e) => setReason(e.target.value)}
+                        onChange={(e) => {
+                            if (e.target.value.length <= 300) {
+                                setReason(e.target.value);
+                            }
+                        }}
                         disabled={isSubmitting}
                         placeholder="Share your thoughts..."
+                        maxLength={300}
                     />
+
+                    <div className="char-counter">
+                        {reason.length}/300
+                    </div>
                 </div>
 
                 <button
