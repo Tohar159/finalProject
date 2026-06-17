@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
 import {
+    ResponsiveContainer,
     BarChart,
     Bar,
     XAxis,
     YAxis,
     Tooltip,
-    ResponsiveContainer
+    CartesianGrid
 } from "recharts";
 
 function AdminDashboard({ onLogout }) {
@@ -106,13 +107,8 @@ function AdminDashboard({ onLogout }) {
                 </div>
 
                 <div className="chart-wrapper">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={comparisonData}>
-                            <XAxis dataKey="name" />
-                            <YAxis domain={[0, 100]} />
-                            <Tooltip />
-                            <Bar dataKey="accuracy" fill="#6c63ff" />
-                        </BarChart>
+                    <ResponsiveContainer width="100%" height={280}>
+                        <div>TEST GRAPH</div>
                     </ResponsiveContainer>
                 </div>
             </div>
