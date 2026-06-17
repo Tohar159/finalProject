@@ -1,14 +1,5 @@
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
-import {
-    ResponsiveContainer,
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    Tooltip,
-    CartesianGrid
-} from "recharts";
 
 function AdminDashboard({ onLogout }) {
     const [stats, setStats] = useState(null);
@@ -107,7 +98,29 @@ function AdminDashboard({ onLogout }) {
                 </div>
 
                 <div className="chart-wrapper">
-                    TEST GRAPH
+                    <div className="simple-bar-chart">
+                        <div className="bar-item">
+                            <span>Human</span>
+                            <div className="bar-track">
+                                <div
+                                    className="bar-fill"
+                                    style={{ width: `${stats.accuracy}%` }}
+                                ></div>
+                            </div>
+                            <strong>{stats.accuracy}%</strong>
+                        </div>
+
+                        <div className="bar-item">
+                            <span>Model</span>
+                            <div className="bar-track">
+                                <div
+                                    className="bar-fill"
+                                    style={{ width: `${stats.model_accuracy}%` }}
+                                ></div>
+                            </div>
+                            <strong>{stats.model_accuracy}%</strong>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
