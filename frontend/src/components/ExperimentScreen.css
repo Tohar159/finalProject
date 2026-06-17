@@ -109,8 +109,8 @@
 }
 
 .experiment-image {
-    width: 350px;
-    height: 350px;
+    width: 5000px;
+    height: 500px;
     object-fit: contain;
     display: block;
     margin: 0 auto 12px;
