@@ -97,19 +97,13 @@ def get_random_images(exclude: str = ""):
     with engine.connect() as conn:
 
         categories = [
-            ("peoples", 3),
-            ("animals", 3),
-            ("views", 2),
-            ("flowers", 2)
+            ("peoples", 2, 1),  # 2 fake, 1 real
+            ("animals", 1, 2),  # 1 fake, 2 real
+            ("views", 1, 1),
+            ("flowers", 1, 1)
         ]
 
-        fake_needed = 5
-        real_needed = 5
-
-        for category, amount in categories:
-
-            fake_amount = round(amount / 2)
-            real_amount = amount - fake_amount
+        for category, fake_amount, real_amount in categories:
 
             fake_result = conn.execute(text("""
                 SELECT image_id, image_path, category, image_type
