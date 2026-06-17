@@ -311,12 +311,19 @@ def get_admin_stats():
             ORDER BY round_number
         """)).fetchall()
 
+        model_accuracy = conn.execute(text("""
+            SELECT
+                ROUND(AVG(CASE WHEN model_correct THEN 1 ELSE 0 END) * 100, 2)
+            FROM images
+        """)).scalar()
+
     return {
         "participants_count": participants_count,
         "answers_count": answers_count,
         "accuracy": float(result.accuracy) if result.accuracy is not None else 0,
         "avg_confidence": float(result.avg_confidence) if result.avg_confidence is not None else 0,
         "avg_response_time": float(result.avg_response_time) if result.avg_response_time is not None else 0,
+        "model_accuracy": float(model_accuracy) if model_accuracy is not None else 0,
         "accuracy_by_round": [
             {
                 "round": row.round_number,
