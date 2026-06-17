@@ -107,9 +107,7 @@ function AdminDashboard({ onLogout }) {
                 </div>
 
                 <div className="chart-wrapper">
-                    <ResponsiveContainer width="100%" height={280}>
-                        <div>TEST GRAPH</div>
-                    </ResponsiveContainer>
+                    TEST GRAPH
                 </div>
             </div>
         </div>
