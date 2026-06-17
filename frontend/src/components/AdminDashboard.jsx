@@ -55,6 +55,11 @@ function AdminDashboard({ onLogout }) {
                 </div>
 
                 <div className="dashboard-card">
+                    <span className="dashboard-label">Model Accuracy</span>
+                    <strong>{stats.model_accuracy}%</strong>
+                </div>
+
+                <div className="dashboard-card">
                     <span className="dashboard-label">Round 1 Accuracy</span>
                     <strong>{round1Accuracy}%</strong>
                 </div>
