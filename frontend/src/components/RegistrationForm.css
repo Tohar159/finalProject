@@ -134,3 +134,10 @@
     opacity: 0.45;
     cursor: not-allowed;
 }
+
+.loading-note {
+    margin-top: 12px;
+    color: #6c63ff;
+    font-size: 14px;
+    font-weight: 600;
+}

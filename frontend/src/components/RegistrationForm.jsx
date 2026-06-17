@@ -9,6 +9,7 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
     const [aiUsage, setAiUsage] = useState("");
     const [consent, setConsent] = useState(false);
     const [showValidationError, setShowValidationError] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const countries = [
         "United States",
@@ -45,6 +46,7 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
             setShowValidationError(true);
             return;
         }
+        setIsSubmitting(true);
 
         try {
             const response = await fetch("https://deepfake-backend-ki3i.onrender.com/participants", {
@@ -67,6 +69,7 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
         } catch (err) {
             console.error("Error creating participant:", err);
             alert("There was a problem creating participant.");
+            setIsSubmitting(false);
         }
     }
 
@@ -162,10 +165,16 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
                 <button
                     className="registration-submit"
                     onClick={handleStart}
-                    disabled={!consent}
+                    disabled={!consent || isSubmitting}
                 >
-                    Start Experiment
+                    {isSubmitting ? "Preparing your experiment..." : "Start Experiment"}
                 </button>
+
+                {isSubmitting && (
+                    <p className="loading-note">
+                        Please wait while we prepare your experiment.
+                    </p>
+                )}
             </div>
         </div>
     );
