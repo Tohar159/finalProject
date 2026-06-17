@@ -112,7 +112,7 @@ def get_random_images(exclude: str = ""):
             real_amount = amount - fake_amount
 
             fake_result = conn.execute(text("""
-                SELECT image_id, image_path, category
+                SELECT image_id, image_path, category, image_type
                 FROM images
                 WHERE category = :category
                 AND image_type = 'fake'
@@ -126,7 +126,7 @@ def get_random_images(exclude: str = ""):
             })
 
             real_result = conn.execute(text("""
-                SELECT image_id, image_path, category
+                SELECT image_id, image_path, category, image_type
                 FROM images
                 WHERE category = :category
                 AND image_type = 'real'
@@ -143,14 +143,16 @@ def get_random_images(exclude: str = ""):
                 images.append({
                     "image_id": row.image_id,
                     "image_path": row.image_path,
-                    "category": row.category
+                    "category": row.category,
+                    "image_type": row.image_type
                 })
 
             for row in real_result:
                 images.append({
                     "image_id": row.image_id,
                     "image_path": row.image_path,
-                    "category": row.category
+                    "category": row.category,
+                    "image_type": row.image_type
                 })
 
     import random
