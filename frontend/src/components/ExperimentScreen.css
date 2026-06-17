@@ -110,8 +110,8 @@
 
 .experiment-image {
     width: 100%;
-    max-width: 500px;
-    height: 320px;
+    max-width: 600px;
+    height: 450px;
     object-fit: contain;
     display: block;
     margin: 0 auto 12px;
