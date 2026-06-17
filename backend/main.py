@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
-DATASET_DIR = BASE_DIR.parent / "dataset1_split" / "test"
+DATASET_DIR = BASE_DIR.parent / "dataset"
 
 if DATASET_DIR.exists():
     app.mount("/dataset", StaticFiles(directory=str(DATASET_DIR)), name="dataset")
