@@ -82,38 +82,81 @@ def create_participant(participant: ParticipantCreate):
 
 @app.get("/images/random")
 def get_random_images(exclude: str = ""):
+
     exclude_ids = []
 
     if exclude:
-        exclude_ids = [int(x) for x in exclude.split(",") if x.strip().isdigit()]
+        exclude_ids = [
+            int(x)
+            for x in exclude.split(",")
+            if x.strip().isdigit()
+        ]
+
+    images = []
 
     with engine.connect() as conn:
-        if exclude_ids:
-            result = conn.execute(text("""
+
+        categories = [
+            ("peoples", 3),
+            ("animals", 3),
+            ("views", 2),
+            ("flowers", 2)
+        ]
+
+        fake_needed = 5
+        real_needed = 5
+
+        for category, amount in categories:
+
+            fake_amount = round(amount / 2)
+            real_amount = amount - fake_amount
+
+            fake_result = conn.execute(text("""
                 SELECT image_id, image_path, category
                 FROM images
-                WHERE image_id NOT IN :exclude_ids
+                WHERE category = :category
+                AND image_type = 'fake'
+                AND image_id NOT IN :exclude_ids
                 ORDER BY RANDOM()
-                LIMIT 10
-            """), {"exclude_ids": tuple(exclude_ids)})
-        else:
-            result = conn.execute(text("""
-                SELECT image_id, image_path, category
-                FROM images
-                ORDER BY RANDOM()
-                LIMIT 10
-            """))
-
-        images = []
-
-        for row in result:
-            images.append({
-                "image_id": row.image_id,
-                "image_path": row.image_path,
-                "category": row.category
+                LIMIT :amount
+            """), {
+                "category": category,
+                "exclude_ids": tuple(exclude_ids) if exclude_ids else (-1,),
+                "amount": fake_amount
             })
 
-        return images
+            real_result = conn.execute(text("""
+                SELECT image_id, image_path, category
+                FROM images
+                WHERE category = :category
+                AND image_type = 'real'
+                AND image_id NOT IN :exclude_ids
+                ORDER BY RANDOM()
+                LIMIT :amount
+            """), {
+                "category": category,
+                "exclude_ids": tuple(exclude_ids) if exclude_ids else (-1,),
+                "amount": real_amount
+            })
+
+            for row in fake_result:
+                images.append({
+                    "image_id": row.image_id,
+                    "image_path": row.image_path,
+                    "category": row.category
+                })
+
+            for row in real_result:
+                images.append({
+                    "image_id": row.image_id,
+                    "image_path": row.image_path,
+                    "category": row.category
+                })
+
+    import random
+    random.shuffle(images)
+
+    return images
 
 class UserAnswer(BaseModel):
     participantId: int
