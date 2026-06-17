@@ -63,24 +63,6 @@ function AdminDashboard({ onLogout }) {
                     <strong>{stats.participants_count}</strong>
                 </div>
 
-                <div className="dashboard-chart-card">
-                    <div className="chart-header">
-                        <h2>Human vs Model Accuracy</h2>
-                        <p>Compare participant performance with the AI model.</p>
-                    </div>
-
-                    <div className="chart-wrapper">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={comparisonData}>
-                                <XAxis dataKey="name" />
-                                <YAxis domain={[0, 100]} />
-                                <Tooltip />
-                                <Bar dataKey="accuracy" />
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </div>
-                </div>
-
                 <div className="dashboard-card">
                     <span className="dashboard-label">Total Answers</span>
                     <strong>{stats.answers_count}</strong>
@@ -114,6 +96,24 @@ function AdminDashboard({ onLogout }) {
                 <div className="dashboard-card wide-card">
                     <span className="dashboard-label">Avg Response Time</span>
                     <strong>{stats.avg_response_time}s</strong>
+                </div>
+            </div>
+
+            <div className="dashboard-chart-card">
+                <div className="chart-header">
+                    <h2>Human vs Model Accuracy</h2>
+                    <p>Compare participant performance with the AI model.</p>
+                </div>
+
+                <div className="chart-wrapper">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={comparisonData}>
+                            <XAxis dataKey="name" />
+                            <YAxis domain={[0, 100]} />
+                            <Tooltip />
+                            <Bar dataKey="accuracy" fill="#6c63ff" />
+                        </BarChart>
+                    </ResponsiveContainer>
                 </div>
             </div>
         </div>
