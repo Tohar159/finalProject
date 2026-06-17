@@ -19,7 +19,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-test_dataset = datasets.ImageFolder("dataset/test", transform=transform)
+test_dataset = datasets.ImageFolder("dataset1_split/test", transform=transform)
 test_loader = DataLoader(test_dataset, batch_size=32)
 
 print("Class mapping:", test_dataset.class_to_idx)

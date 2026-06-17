@@ -1,59 +1,75 @@
+import os
 import torch
-from torchvision import datasets, transforms
-from torch.utils.data import DataLoader
+from PIL import Image
+from torchvision import transforms
 import timm
-import pandas as pd
+from sqlalchemy import create_engine, text
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+engine = create_engine(DATABASE_URL)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
+
+BASE_IMAGE_FOLDER = "dataset1_split/test"
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
 ])
 
-# כרגע נבדוק על test
-dataset = datasets.ImageFolder("dataset/test", transform=transform)
-loader = DataLoader(dataset, batch_size=32, shuffle=False)
-
-class_names = dataset.classes
-print("Classes:", class_names)
+idx_to_label = {
+    0: "fake",
+    1: "real"
+}
 
 model = timm.create_model("efficientnet_b0", pretrained=False, num_classes=2)
 model.load_state_dict(torch.load("deepfake_model.pth", map_location=device))
 model.to(device)
 model.eval()
 
-results = []
+with engine.connect() as conn:
+    images = conn.execute(text("""
+        SELECT image_id, image_path, image_type
+        FROM images
+    """)).fetchall()
 
-with torch.no_grad():
-    for images, labels in loader:
-        images = images.to(device)
-        labels = labels.to(device)
+    print("Images from DB:", len(images))
 
-        outputs = model(images)
-        probabilities = torch.softmax(outputs, dim=1)
+    for row in images:
+        image_id = row.image_id
+        db_image_path = row.image_path
+        true_type = row.image_type
 
-        confidence_values, predictions = torch.max(probabilities, 1)
+        full_image_path = os.path.join(BASE_IMAGE_FOLDER, db_image_path)
 
-        for i in range(len(images)):
-            true_label = class_names[labels[i].item()]
-            predicted_label = class_names[predictions[i].item()]
-            confidence = round(confidence_values[i].item() * 100, 2)
-            is_correct = true_label == predicted_label
+        image = Image.open(full_image_path).convert("RGB")
+        image_tensor = transform(image).unsqueeze(0).to(device)
 
-            image_path = dataset.samples[len(results)][0]
+        with torch.no_grad():
+            outputs = model(image_tensor)
+            probabilities = torch.softmax(outputs, dim=1)
+            confidence_value, prediction = torch.max(probabilities, 1)
 
-            results.append({
-                "image_path": image_path,
-                "true_label": true_label,
-                "model_prediction": predicted_label,
-                "model_confidence": confidence,
-                "model_correct": is_correct
-            })
+        model_prediction = idx_to_label[prediction.item()]
+        model_confidence = round(confidence_value.item() * 100, 2)
+        model_correct = model_prediction == true_type
 
-df = pd.DataFrame(results)
-df.to_csv("model_predictions.csv", index=False, encoding="utf-8-sig")
+        conn.execute(text("""
+            UPDATE images
+            SET
+                model_prediction = :model_prediction,
+                model_confidence = :model_confidence,
+                model_correct = :model_correct
+            WHERE image_id = :image_id
+        """), {
+            "model_prediction": model_prediction,
+            "model_confidence": model_confidence,
+            "model_correct": model_correct,
+            "image_id": image_id
+        })
 
-print("Saved model_predictions.csv")
-print(df.head())
+    conn.commit()
+
+print("Model predictions updated successfully!")

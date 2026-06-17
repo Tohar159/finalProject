@@ -41,11 +41,6 @@
     font-size: 14px;
 }
 
-.chart-wrapper {
-    width: 100%;
-    height: 280px;
-    margin-top: 20px;
-}
 
 .simple-bar-chart {
     max-width: 720px;
