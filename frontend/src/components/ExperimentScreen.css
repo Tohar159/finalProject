@@ -109,8 +109,8 @@
 }
 
 .experiment-image {
-    width: 500px;
-    height: 500px;
+    width: 360px;
+    height: 300px;
     object-fit: contain;
     display: block;
     margin: 0 auto 12px;
@@ -405,7 +405,8 @@ textarea:focus {
     }
 
     .experiment-image {
-        height: 205px;
+        width: 360px;
+        height: 260px;
         margin-bottom: 10px;
     }
 
