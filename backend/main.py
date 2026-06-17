@@ -138,7 +138,6 @@ def get_random_images(exclude: str = ""):
                     "image_id": row.image_id,
                     "image_path": row.image_path,
                     "category": row.category,
-                    "image_type": row.image_type
                 })
 
             for row in real_result:
@@ -146,7 +145,6 @@ def get_random_images(exclude: str = ""):
                     "image_id": row.image_id,
                     "image_path": row.image_path,
                     "category": row.category,
-                    "image_type": row.image_type
                 })
 
     import random
