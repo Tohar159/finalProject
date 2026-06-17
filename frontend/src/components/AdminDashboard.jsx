@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer
+} from "recharts";
 
 function AdminDashboard({ onLogout }) {
     const [stats, setStats] = useState(null);
@@ -25,6 +33,17 @@ function AdminDashboard({ onLogout }) {
     const round2Accuracy =
         stats.accuracy_by_round?.find((item) => item.round === 2)?.accuracy ?? 0;
 
+    const comparisonData = [
+        {
+            name: "Human",
+            accuracy: stats.accuracy
+        },
+        {
+            name: "Model",
+            accuracy: stats.model_accuracy
+        }
+    ];
+
     return (
         <div className="admin-dashboard-page">
             <div className="dashboard-header">
@@ -42,6 +61,24 @@ function AdminDashboard({ onLogout }) {
                 <div className="dashboard-card">
                     <span className="dashboard-label">Participants</span>
                     <strong>{stats.participants_count}</strong>
+                </div>
+
+                <div className="dashboard-chart-card">
+                    <div className="chart-header">
+                        <h2>Human vs Model Accuracy</h2>
+                        <p>Compare participant performance with the AI model.</p>
+                    </div>
+
+                    <div className="chart-wrapper">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={comparisonData}>
+                                <XAxis dataKey="name" />
+                                <YAxis domain={[0, 100]} />
+                                <Tooltip />
+                                <Bar dataKey="accuracy" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
                 </div>
 
                 <div className="dashboard-card">
