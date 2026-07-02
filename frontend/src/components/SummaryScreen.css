@@ -1,105 +1,43 @@
 .summary-page {
     min-height: 100vh;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 24px;
-    background: transparent;
+    padding: 32px;
 }
 
 .summary-content {
     width: 100%;
-    max-width: 760px;
+    max-width: 720px;
     text-align: center;
 }
 
 .summary-title {
-    margin: 0 0 24px;
-    font-size: 46px;
-    font-weight: 800;
-    color: #111827;
-    letter-spacing: -0.8px;
-}
-
-.summary-score {
-    margin: 0 0 8px;
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 8px;
-}
-
-.score-number {
-    font-size: 64px;
+    font-size: 42px;
     font-weight: 750;
-    color: #6c63ff;
-    line-height: 1;
+    color: #111827;
+    margin-bottom: 26px;
 }
 
-.score-total {
-    font-size: 54px;
-    font-weight: 650;
-    color: #64748b;
-    line-height: 1;
-}
-
-.summary-rate {
-    margin: 0 0 34px;
+.summary-description {
     font-size: 18px;
-    font-weight: 700;
-    color: #374151;
+    line-height: 1.9;
+    color: #4b5563;
+    margin-bottom: 18px;
 }
 
-.summary-cards {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-bottom: 42px;
+.primary-btn {
+    margin-top: 34px;
 }
 
-.summary-card {
-    width: 230px;
-    padding: 24px 20px;
-    background: rgba(255, 255, 255, 0.78);
-    border: 1px solid rgba(220, 222, 235, 0.95);
-    border-radius: 24px;
-    box-shadow: 0 16px 36px rgba(31, 41, 55, 0.07);
-}
+@media (max-width:700px){
 
-.summary-card-title {
-    font-size: 20px;
-    font-weight: 800;
-    color: #111827;
-    margin-bottom: 6px;
-}
-
-.summary-card-subtitle {
-    font-size: 15px;
-    font-weight: 500;
-    color: #6b7280;
-    margin-bottom: 16px;
-}
-
-.summary-card-score {
-    font-size: 30px;
-    font-weight: 800;
-    color: #6c63ff;
-}
-
-.summary-footer {
-    margin-top: 8px;
-}
-
-.summary-thankyou {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 750;
-    color: #111827;
-}
-
-@media (max-width: 600px) {
-    .summary-title {
-        line-height: 1.1;
+    .summary-title{
+        font-size:34px;
     }
+
+    .summary-description{
+        font-size:16px;
+    }
+
 }

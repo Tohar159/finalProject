@@ -12,26 +12,28 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const countries = [
-        "United States",
-        "United Kingdom",
-        "Canada",
-        "Australia",
-        "Germany",
-        "France",
-        "Spain",
-        "Israel ⭐",
-        "Italy",
-        "Netherlands",
-        "Sweden",
-        "India",
-        "Thailand",
-        "China",
-        "Japan",
-        "Brazil",
-        "Mexico",
-        "Argentina",
-        "South Africa",
-        "Other"
+        { value: "Argentina", label: "ארגנטינה" },
+        { value: "United States", label: "ארצות הברית" },
+        { value: "Australia", label: "אוסטרליה" },
+        { value: "Italy", label: "איטליה" },
+        { value: "Other", label: "אחר" },
+        { value: "United Kingdom", label: "בריטניה" },
+        { value: "Brazil", label: "ברזיל" },
+        { value: "Germany", label: "גרמניה" },
+        { value: "Netherlands", label: "הולנד" },
+        { value: "India", label: "הודו" },
+        { value: "Thailand", label: "תאילנד" },
+        { value: "Turkey", label: "טורקיה" },
+        { value: "Japan", label: "יפן" },
+        { value: "Israel", label: "ישראל⭐" },
+        { value: "Canada", label: "קנדה" },
+        { value: "Mexico", label: "מקסיקו" },
+        { value: "China", label: "סין" },
+        { value: "Spain", label: "ספרד" },
+        { value: "Sweden", label: "שוודיה" },
+        { value: "France", label: "צרפת" },
+        { value: "South Africa", label: "דרום אפריקה" },
+        { value: "Other", label: "אחר" }
     ];
 
     const isFormValid =
@@ -77,27 +79,27 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
         <div className="registration-page">
             <div className="registration-container">
                 <button className="back-link" onClick={onBack}>
-                    ← Back
+                    → חזרה
                 </button>
 
-                <h2 className="registration-title">Experiment Registration</h2>
+                <h2 className="registration-title">טופס הרשמה לניסוי</h2>
 
                 <p className="registration-subtitle">
-                    The experiment is anonymous. The details are used only for research purposes.
+                     המידע שתמסרו ישמש לצורכי מחקר בלבד ויישמר באופן אנונימי
                 </p>
 
 
                 {showValidationError && !isFormValid && (
                     <p className="validation-error">
-                        Please complete all required fields.
+                        *אנא מלאו את כל השדות הנדרשים
                     </p>
                 )}
 
                 <div className="registration-form">
                     <div className="form-row">
-                        <label>Age</label>
+                        <label>גיל</label>
                         <select value={age} onChange={(e) => setAge(e.target.value)}>
-                            <option value="">Select age</option>
+                            <option value="">בחרו טווח גילאים</option>
                             <option value="18-24">18-24</option>
                             <option value="25-34">25-34</option>
                             <option value="35-44">35-44</option>
@@ -108,47 +110,47 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
                     </div>
 
                     <div className="form-row">
-                        <label>Gender</label>
+                        <label>מגדר</label>
                         <select value={gender} onChange={(e) => setGender(e.target.value)}>
-                            <option value="">Select gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
+                            <option value="">בחרו מגדר</option>
+                            <option value="Male">זכר</option>
+                            <option value="Female">נקבה</option>
                         </select>
                     </div>
 
                     <div className="form-row full-width">
-                        <label>Country</label>
+                        <label>מדינת מגורים</label>
                         <select value={country} onChange={(e) => setCountry(e.target.value)}>
-                            <option value="">Select country</option>
-                            {countries.map((countryName) => (
-                                <option key={countryName} value={countryName}>
-                                    {countryName}
+                            <option value="">בחרו מדינה</option>
+                            {countries.map((country) => (
+                                <option key={country.value} value={country.value}>
+                                    {country.label}
                                 </option>
                             ))}
                         </select>
                     </div>
 
                     <div className="form-row">
-                        <label>Education</label>
+                        <label>השכלה</label>
                         <select value={education} onChange={(e) => setEducation(e.target.value)}>
-                            <option value="">Select education</option>
-                            <option value="High School">High School</option>
-                            <option value="Bachelor's Degree">Bachelor</option>
-                            <option value="Master's Degree">Master</option>
-                            <option value="Doctorate (PhD)">PhD</option>
-                            <option value="No Formal Education">No Formal Education</option>
-                            <option value="Other">Other</option>
+                            <option value="">בחרו רמת השכלה</option>
+                            <option value="High School">תיכון</option>
+                            <option value="Bachelor's Degree">תואר ראשון</option>
+                            <option value="Master's Degree">תואר שני</option>
+                            <option value="Doctorate (PhD)">דוקטורט</option>
+                            <option value="No Formal Education">ללא השכלה פורמלית</option>
+                            <option value="Other">אחר</option>
                         </select>
                     </div>
 
                     <div className="form-row">
-                        <label>AI Usage</label>
+                        <label>שימוש בכלי בינה מלאכותית</label>
                         <select value={aiUsage} onChange={(e) => setAiUsage(e.target.value)}>
-                            <option value="">Select AI usage</option>
-                            <option value="Daily">Daily</option>
-                            <option value="Sometimes">Sometimes</option>
-                            <option value="Rarely">Rarely</option>
-                            <option value="Never">Never</option>
+                            <option value="">בחרו תדירות שימוש</option>
+                            <option value="Daily">כל יום</option>
+                            <option value="Sometimes">מספר פעמים בשבוע</option>
+                            <option value="Rarely">לעיתים רחוקות</option>
+                            <option value="Never">אף פעם</option>
                         </select>
                     </div>
                 </div>
@@ -159,7 +161,7 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
                         checked={consent}
                         onChange={(e) => setConsent(e.target.checked)}
                     />
-                    <span>I agree to participate in the experiment</span>
+                    <span>אני מסכים/ה להשתתף בניסוי</span>
                 </label>
 
                 <button
@@ -167,12 +169,12 @@ function RegistrationForm({ onBack, onParticipantCreated }) {
                     onClick={handleStart}
                     disabled={!consent || isSubmitting}
                 >
-                    {isSubmitting ? "Preparing your experiment..." : "Start Experiment"}
+                    {isSubmitting ? "טוען..." : "התחל בניסוי"}
                 </button>
 
                 {isSubmitting && (
                     <p className="loading-note">
-                        Please wait while we prepare your experiment.
+                        אנא המתינו בזמן שהניסוי נטען
                     </p>
                 )}
             </div>

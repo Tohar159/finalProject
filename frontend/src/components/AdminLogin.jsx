@@ -11,28 +11,28 @@ function AdminLogin({ onLoginSuccess, onBack }) {
         if (password === "1234") {
             onLoginSuccess();
         } else {
-            setError("Incorrect password");
+            setError("סיסמה שגויה");
         }
     }
 
     return (
         <div className="admin-login-page">
             <button className="admin-back-btn" onClick={onBack}>
-                ← Back
+                → חזרה
             </button>
 
             <div className="admin-login-container">
-                <h1 className="admin-login-title">Research Dashboard</h1>
+                <h1 className="admin-login-title">דשבורד המחקר</h1>
 
                 <p className="admin-login-subtitle">
-                    Administrator Login
+                    כניסת מנהל
                 </p>
 
                 <div className="password-wrapper">
                     <input
                         className="password-input"
                         type={showPassword ? "text" : "password"}
-                        placeholder="Enter password"
+                        placeholder="הזינו סיסמה"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         onKeyDown={(e) => {
@@ -54,7 +54,7 @@ function AdminLogin({ onLoginSuccess, onBack }) {
                 {error && <p className="login-error">{error}</p>}
 
                 <button className="login-btn" onClick={handleLogin}>
-                    Login
+                    התחברות
                 </button>
             </div>
         </div>

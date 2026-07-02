@@ -1,3 +1,11 @@
+.admin-login-title,
+.admin-login-subtitle,
+.password-input,
+.login-btn,
+.admin-back-btn {
+    font-family: inherit;
+}
+
 .admin-login-page {
     min-height: 100vh;
     display: flex;
@@ -10,10 +18,10 @@
 .admin-back-btn {
     position: fixed;
     top: 22px;
-    left: 28px;
+    right: 28px;
     border: none;
     background: rgba(255,255,255,0.7);
-    padding: 10px 16px;
+    padding: 8px 14px;
     border-radius: 14px;
     color: #6b7280;
     font-size: 14px;
@@ -30,7 +38,8 @@
 .admin-login-title {
     margin: 0;
     font-size: 42px;
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: 0;
     color: #111827;
 }
 
@@ -92,7 +101,7 @@
     background: linear-gradient(135deg, #6c63ff, #7e72ff);
     color: white;
     font-size: 17px;
-    font-weight: 800;
+    font-weight: 700;
     cursor: pointer;
     box-shadow: 0 10px 24px rgba(108,99,255,0.22);
 }
@@ -109,23 +118,26 @@
     display: none;
 }
 
+.admin-login-title {
+    line-height: 0.92;
+
+    html,
+    body,
+    #root {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+    }
+
 @media (max-width: 600px) {
 
     .admin-login-page {
         align-items: flex-start;
         padding-top: 200px;
     }
-
     .admin-login-title {
         line-height: 0.92;
-
-        html,
-        body,
-        #root {
-            min-height: 100vh;
-            margin: 0;
-            overflow-x: hidden;
-        }
     }
+}
 
 }

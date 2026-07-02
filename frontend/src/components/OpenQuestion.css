@@ -1,0 +1,140 @@
+.feedback-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+}
+
+.feedback-card {
+    width: 100%;
+    max-width: 760px;
+    text-align: center;
+}
+
+.summary-title {
+    font-size: 42px;
+    font-weight: 750;
+    color: #111827;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.summary-intro {
+    font-size: 16px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 34px;
+}
+
+.summary-score {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 8px;
+    direction: ltr;
+    margin-bottom: 10px;
+}
+
+.score-number {
+    font-size: 66px;
+    font-weight: 800;
+    color: #6c63ff;
+    line-height: 1;
+}
+
+.score-total {
+    font-size: 50px;
+    font-weight: 650;
+    color: #94a3b8;
+    line-height: 1;
+}
+
+.summary-rate {
+    font-size: 20px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 34px;
+}
+
+.summary-divider {
+    width: 100%;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 36px 0;
+}
+
+.feedback-question {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.feedback-description {
+    max-width: 650px;
+    margin: 0 auto 10px;
+    line-height: 1.8;
+    font-size: 17px;
+    color: #4b5563;
+}
+
+.feedback-note {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 22px;
+    font-style: italic;
+}
+
+.feedback-textarea {
+    width: 100%;
+    min-height: 170px;
+    resize: vertical;
+
+    padding: 18px;
+
+    border: 1.5px solid #d8dbe7;
+    border-radius: 18px;
+
+    background: rgba(255,255,255,.9);
+
+    font-size: 15px;
+    font-family: inherit;
+    color: #111827;
+
+    outline: none;
+    transition: .2s;
+}
+
+.feedback-textarea:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 4px rgba(108,99,255,.12);
+}
+
+.feedback-textarea::placeholder {
+    color: #9ca3af;
+}
+
+.primary-btn {
+    margin-top: 26px;
+}
+
+@media (max-width: 700px) {
+
+    .summary-title {
+        font-size: 34px;
+    }
+
+    .score-number {
+        font-size: 54px;
+    }
+
+    .score-total {
+        font-size: 40px;
+    }
+
+    .feedback-question {
+        font-size: 24px;
+    }
+
+}

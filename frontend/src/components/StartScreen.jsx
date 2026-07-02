@@ -4,26 +4,44 @@ function StartScreen({ onContinue, onAdminClick }) {
     return (
         <div className="start-page">
             <button className="admin-corner-btn" onClick={onAdminClick}>
-                Admin Portal
+                כניסת מנהל
             </button>
 
             <div className="start-card">
                 <div className="start-logo">
-                    Real or <span>Fake?</span>
+                    אמיתי או <span> AI ? </span>
                 </div>
 
                 <p className="start-description">
-                    In this experiment, you will be asked to identify whether images are real or AI-generated.
+                    בניסוי זה תתבקשו לזהות האם התמונות המוצגות הן אמיתיות או נוצרו באמצעות בינה מלאכותית
                 </p>
 
-                <div className="start-features">
-                    <div>Round 1 — with time limit</div>
-                    <div>Round 2 — without time limit</div>
-                    <div>Your answers are anonymous and used for research purposes only.</div>
+                <div className="features-title">
+                    הניסוי כולל שני סבבים:
                 </div>
 
+                <div className="rounds-list">
+                    <div>
+                        סבב 1 – עם הגבלת זמן
+                        <span className="round-extra"> (10 שניות לכל תמונה)</span>
+                    </div>
+
+                    <div>
+                        סבב 2 – ללא הגבלת זמן
+                    </div>
+                </div>
+
+
+                    <div className="end-of-experience">
+                        <strong>בסיום שני הסבבים</strong> תתבקשו למלא שאלון קצר
+                    </div>
+
+                    <div className="privacy-text">
+                        🕒 משך הניסוי המשוער: כ־10 דקות
+                    </div>
+
                 <button className="primary-btn" onClick={onContinue}>
-                    Continue
+                    המשך
                 </button>
             </div>
         </div>

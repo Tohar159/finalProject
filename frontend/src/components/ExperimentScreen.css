@@ -1,7 +1,10 @@
 * {
     box-sizing: border-box;
 }
-
+.experiment-page,
+.experiment-page * {
+    font-family: inherit;
+}
 .experiment-page {
     width: 100vw;
     height: 100vh;
@@ -17,6 +20,7 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
+    direction: ltr;
 }
 
 .experiment-header h2 {
@@ -25,6 +29,7 @@
     font-size: 15px;
     font-weight: 600;
     color: #6b7280;
+    direction: rtl;
 }
 
 .timer {
@@ -32,15 +37,17 @@
     height: 56px;
     grid-column: 3;
     justify-self: end;
-    transform: translateX(80px);
+    transform: translateX(0);
     padding: 6px 12px;
     border-radius: 18px;
-    border: 1px solid #e9e3ff;
-    background: #faf8ff;
+    border: 1.5px solid #d5cbff;
+    background: #f3efff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    direction: ltr;
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.12);
 }
 
 
@@ -48,11 +55,17 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    justify-content: center;
+}
+
+.timer-icon {
+    width: 20px;
+    height: 20px;
 }
 
 .timer-number {
     color: #7c6cff;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
 }
 
@@ -61,6 +74,7 @@
     color: #2f3545;
     font-size: 11px;
     font-weight: 500;
+    direction: rtl;
 }
 
 .progress-segments {
@@ -85,18 +99,19 @@
 
 .experiment-card {
     width: 100%;
-    max-width: 760px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 16px 40px 14px;
+    padding: 30px 60px 30px;
     border-radius: 28px;
-    border: 1px solid rgba(220, 222, 235, 0.9);
+    border: 1px solid rgba(240, 240, 240, 1);
     background: rgba(255, 255, 255, 0.94);
     text-align: center;
     box-shadow: 0 20px 55px rgba(31, 41, 55, 0.10);
+    min-height: 550px;
 }
 
 .question-title {
-    margin: 0 0 10px;
+    margin: 0 0 18px;
     font-size: 24px;
     font-weight: 700;
     color: #111827;
@@ -113,7 +128,7 @@
     height: 300px;
     object-fit: contain;
     display: block;
-    margin: 0 auto 12px;
+    margin: 0 auto 20px;
     border-radius: 18px;
 }
 
@@ -121,7 +136,7 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 28px;
 }
 
 .choice-btn {
@@ -160,9 +175,12 @@
 .confidence-title {
     display: block;
     margin-bottom: 2px;
+    margin-top: 15px;
     color: #111827;
-    font-size: 17px;
-    font-weight: 800;
+    font-size: 16px;
+    font-weight: 700;
+    direction: rtl;
+    text-align: right;
 }
 
 .confidence-slider-wrap {
@@ -170,6 +188,7 @@
     position: relative;
     width: 100%;
     height: 48px;
+    direction: ltr;
 }
 
 .confidence-value {
@@ -180,6 +199,7 @@
     color: #6c63ff;
     font-size: 14px;
     font-weight: 800;
+    direction: ltr;
 }
 
 .confidence-left,
@@ -247,58 +267,24 @@
     display: none;
 }
 
-/* Reason */
-.form-section {
-    max-width: 640px;
-    margin: 2px auto 0;
-    text-align: left;
-}
-
-.form-section label {
-    display: block;
-    margin-bottom: 6px;
-    color: #1f2937;
-    font-size: 18px;
-    font-weight: 800;
-}
-
-.optional-text {
-    margin-left: 6px;
-    color: #9ca3af;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-textarea {
-    width: 100%;
-    height: 66px;
-    min-height: 66px;
-    padding: 14px 18px;
-    border: 2px solid #d9dbe6;
-    border-radius: 16px;
-    font-family: inherit;
-    font-size: 15px;
-    resize: none;
-    outline: none;
-    overflow: hidden;
-}
-
-textarea:focus {
-    border-color: #6c63ff;
-    box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.12);
-}
 
 .next-btn {
-    margin-top: 8px;
+    position: relative;
+    margin-top: 100px;
     padding: 11px 56px;
     border: none;
     border-radius: 16px;
     background: linear-gradient(135deg, #6c63ff, #7c6cff);
     color: white;
-    font-size: 16px;
-    font-weight: 800;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
     box-shadow: 0 12px 24px rgba(108, 99, 255, 0.26);
+}
+
+.char-counter {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .next-btn:disabled {
@@ -570,31 +556,6 @@ textarea:focus {
             font-size: 16px;
             left: calc(95px + (100% - 190px) * var(--confidence-number) / 100);
             pointer-events: none;
-        }
-
-        .form-section {
-            width: 100%;
-            max-width: none;
-            margin-top: 4px;
-        }
-
-        .form-section label {
-            font-size: 19px;
-            line-height: 1.15;
-        }
-
-        .optional-text {
-            display: inline;
-            margin-left: 5px;
-            font-size: 14px;
-        }
-
-        textarea {
-            height: 62px;
-            min-height: 62px;
-            padding: 10px 14px;
-            font-size: 15px;
-            border-radius: 16px;
         }
 
         .next-btn {

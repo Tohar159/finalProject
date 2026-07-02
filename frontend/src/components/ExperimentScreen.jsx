@@ -12,7 +12,6 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const [selected, setSelected] = useState(null);
-    const [reason, setReason] = useState("");
     const [confidence, setConfidence] = useState(50);
     const [time, setTime] = useState(TIME_LIMIT);
     const [imageStartTime, setImageStartTime] = useState(Date.now());
@@ -83,7 +82,6 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                     participantId: participantId,
                     imageId: currentImage.image_id,
                     selected: answerValue,
-                    reason: reason || "",
                     confidence: Number(confidence),
                     responseTimeSeconds: Number(responseTimeSeconds.toFixed(2)),
                     round: round,
@@ -102,7 +100,6 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
             if (currentIndex < images.length - 1) {
                 setCurrentIndex((prevIndex) => prevIndex + 1);
                 setSelected(null);
-                setReason("");
                 setConfidence(50);
                 setTime(TIME_LIMIT);
                 setImageStartTime(Date.now());
@@ -129,7 +126,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
 
     function handleNext() {
         if (!selected) {
-            alert("Please choose Real or Fake");
+            alert("אנא בחרו אמיתי או AI");
             return;
         }
 
@@ -153,7 +150,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
 
             <div className="experiment-header">
                 <h2>
-                    Round {round} | Image {currentIndex + 1} of {images.length}
+                    סבב {round} | תמונה {currentIndex + 1} מתוך {images.length}
                 </h2>
 
                 {isTimed && (
@@ -166,7 +163,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                             </span>
                         </div>
 
-                        <div className="timer-label">Time left</div>
+                        <div className="timer-label">זמן נותר</div>
                     </div>
                 )}
             </div>
@@ -184,8 +181,8 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
 
             <div className="experiment-card">
                 <h1 className="question-title">
-                    Is this image <span className="real-word">real</span> or{" "}
-                    <span className="fake-word">fake</span>?
+                    האם התמונה היא <span className="real-word">אמיתית</span> או{" "}
+                    <span className="fake-word">AI</span> ?
                 </h1>
 
                 <img
@@ -202,7 +199,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                         onClick={() => setSelected("real")}
                         disabled={isSubmitting || (isTimed && time === 0)}
                     >
-                        Real
+                        אמיתי
                     </button>
 
                     <button
@@ -212,13 +209,13 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                         onClick={() => setSelected("fake")}
                         disabled={isSubmitting || (isTimed && time === 0)}
                     >
-                        Fake
+                        AI
                     </button>
                 </div>
 
                 <div className="confidence-section">
                     <label className="confidence-title">
-                        How confident are you?
+                        עד כמה אתם בטוחים בתשובתכם ?
                     </label>
 
                     <div
@@ -230,7 +227,7 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                     >
                         <span className="confidence-value">{confidence}%</span>
 
-                        <span className="confidence-left">😕 Not sure</span>
+                        <span className="confidence-left">😕 לא בטוח/ה </span>
 
                         <input
                             type="range"
@@ -241,39 +238,17 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                             disabled={isSubmitting}
                         />
 
-                        <span className="confidence-right">Very sure 😊</span>
+                        <span className="confidence-right">בטוח/ה מאוד 😊</span>
                     </div>
                 </div>
 
-                <div className="form-section">
-                    <label>
-                        Why did you choose this answer?
-                        <span className="optional-text">(optional)</span>
-                    </label>
-
-                    <textarea
-                        value={reason}
-                        onChange={(e) => {
-                            if (e.target.value.length <= 300) {
-                                setReason(e.target.value);
-                            }
-                        }}
-                        disabled={isSubmitting}
-                        placeholder="Share your thoughts..."
-                        maxLength={300}
-                    />
-
-                    <div className="char-counter">
-                        {reason.length}/300
-                    </div>
-                </div>
 
                 <button
                     className="next-btn"
                     onClick={handleNext}
                     disabled={!selected || isSubmitting}
                 >
-                    Next
+                    המשך
                 </button>
             </div>
         </div>

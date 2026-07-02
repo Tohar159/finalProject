@@ -36,7 +36,6 @@ class Answer(BaseModel):
     selected: str
     correct: str
     isCorrect: bool
-    reason: str
     confidence: int
     round: int
 
@@ -44,6 +43,19 @@ class Answer(BaseModel):
 class AnswersRequest(BaseModel):
     participantId: int
     answers: List[Answer]
+
+class OpenFeedback(BaseModel):
+    participant_id: int
+    feedback_text: str
+
+class PersonalityAnswer(BaseModel):
+    participant_id: int
+    question_number: int
+    answer: int
+
+
+class PersonalityAnswersRequest(BaseModel):
+    answers: List[PersonalityAnswer]
 
 
 @app.get("/")
@@ -156,7 +168,6 @@ class UserAnswer(BaseModel):
     participantId: int
     imageId: int
     selected: str
-    reason: str
     confidence: int
     round: int
     responseTimeSeconds: float
@@ -186,7 +197,6 @@ def check_answer(answer: UserAnswer):
                 correct_answer,
                 is_correct,
                 confidence,
-                reason,
                 round_number,
                 response_time_seconds
             )
@@ -198,7 +208,6 @@ def check_answer(answer: UserAnswer):
                 :correct_answer,
                 :is_correct,
                 :confidence,
-                :reason,
                 :round_number,
                 :response_time_seconds
             )
@@ -209,7 +218,6 @@ def check_answer(answer: UserAnswer):
             "correct_answer": correct_answer,
             "is_correct": is_correct,
             "confidence": answer.confidence,
-            "reason": answer.reason,
             "round_number": answer.round,
             "response_time_seconds": answer.responseTimeSeconds
         })
@@ -221,7 +229,6 @@ def check_answer(answer: UserAnswer):
             "selected": answer.selected,
             "correct": correct_answer,
             "isCorrect": is_correct,
-            "reason": answer.reason,
             "confidence": answer.confidence,
             "round": answer.round
         }
@@ -237,50 +244,69 @@ def test_db():
 
     return {"data": [dict(row._mapping) for row in data]}
 
+@app.post("/open-feedback")
+def save_open_feedback(feedback: OpenFeedback):
 
-@app.post("/answers")
-def receive_answers(request: AnswersRequest):
-    db = SessionLocal()
+    with engine.connect() as conn:
 
-    for answer in request.answers:
-        db.execute(
+        conn.execute(
             text("""
-                INSERT INTO answers (
+                INSERT INTO open_feedback
+                (
                     participant_id,
-                    image_id,
-                    selected_answer,
-                    correct_answer,
-                    is_correct,
-                    confidence,
-                    round_number
+                    feedback_text
                 )
-                VALUES (
+                VALUES
+                (
                     :participant_id,
-                    :image_id,
-                    :selected_answer,
-                    :correct_answer,
-                    :is_correct,
-                    :confidence,
-                    :round_number
+                    :feedback_text
                 )
             """),
             {
-                "participant_id": request.participantId,
-                "image_id": answer.imageId,
-                "selected_answer": answer.selected,
-                "correct_answer": answer.correct,
-                "is_correct": answer.isCorrect,
-                "confidence": answer.confidence,
-                "round_number": answer.round,
+                "participant_id": feedback.participant_id,
+                "feedback_text": feedback.feedback_text
             }
         )
 
-    db.commit()
-    db.close()
+        conn.commit()
 
     return {
-        "status": "ok",
-        "count": len(request.answers)
+        "message": "Feedback saved successfully"
+    }
+
+@app.post("/personality")
+def save_personality_answers(request: PersonalityAnswersRequest):
+
+    with engine.connect() as conn:
+
+        for answer in request.answers:
+
+            conn.execute(
+                text("""
+                    INSERT INTO personality_answers
+                    (
+                        participant_id,
+                        question_number,
+                        answer
+                    )
+                    VALUES
+                    (
+                        :participant_id,
+                        :question_number,
+                        :answer
+                    )
+                """),
+                {
+                    "participant_id": answer.participant_id,
+                    "question_number": answer.question_number,
+                    "answer": answer.answer
+                }
+            )
+
+        conn.commit()
+
+    return {
+        "message": "Personality answers saved successfully"
     }
 
 @app.get("/admin/stats")

@@ -14,7 +14,7 @@ function AdminDashboard({ onLogout }) {
     if (!stats) {
         return (
             <div className="admin-dashboard-page">
-                <h2 className="dashboard-loading">Loading dashboard...</h2>
+                <h2 className="dashboard-loading">טוען את לוח הבקרה...</h2>
             </div>
         );
     }
@@ -40,67 +40,72 @@ function AdminDashboard({ onLogout }) {
         <div className="admin-dashboard-page">
             <div className="dashboard-header">
                 <div>
-                    <h1>Research Dashboard</h1>
-                    <p>Overview of experiment participation and performance.</p>
+                    <h1>דשבורד המחקר</h1>
+                    <p>סקירה כללית של תוצאות הניסוי ונתוני המשתתפים</p>
                 </div>
 
                 <button className="dashboard-logout-btn" onClick={onLogout}>
-                    Logout
+                    התנתקות
                 </button>
             </div>
 
             <div className="dashboard-grid">
                 <div className="dashboard-card">
-                    <span className="dashboard-label">Participants</span>
+                    <span className="dashboard-label">סה"כ משתתפים</span>
                     <strong>{stats.participants_count}</strong>
                 </div>
 
                 <div className="dashboard-card">
-                    <span className="dashboard-label">Total Answers</span>
+                    <span className="dashboard-label">סה"כ תשובות</span>
                     <strong>{stats.answers_count}</strong>
                 </div>
 
                 <div className="dashboard-card highlight-card">
-                    <span className="dashboard-label">Overall Accuracy</span>
+                    <span className="dashboard-label">דיוק כלל המשתתפים</span>
                     <strong>{stats.accuracy}%</strong>
                 </div>
 
                 <div className="dashboard-card">
-                    <span className="dashboard-label">Model Accuracy</span>
+                    <span className="dashboard-label">דיוק המודל</span>
                     <strong>{stats.model_accuracy}%</strong>
                 </div>
 
                 <div className="dashboard-card">
-                    <span className="dashboard-label">Round 1 Accuracy</span>
+                    <span className="dashboard-label">דיוק המשתתפים - סבב 1</span>
                     <strong>{round1Accuracy}%</strong>
                 </div>
 
                 <div className="dashboard-card">
-                    <span className="dashboard-label">Round 2 Accuracy</span>
+                    <span className="dashboard-label">דיוק המשתתפים - סבב 2</span>
                     <strong>{round2Accuracy}%</strong>
                 </div>
 
                 <div className="dashboard-card">
-                    <span className="dashboard-label">Avg Confidence</span>
+                    <span className="dashboard-label">רמת ביטחון ממוצעת</span>
                     <strong>{stats.avg_confidence}%</strong>
                 </div>
 
                 <div className="dashboard-card wide-card">
-                    <span className="dashboard-label">Avg Response Time</span>
-                    <strong>{stats.avg_response_time}s</strong>
+                    <span className="dashboard-label">זמן תגובה ממוצע</span>
+
+                    <strong>
+                        {stats.avg_response_time}
+                        <span className="time-unit"> שנ׳</span>
+                    </strong>
                 </div>
             </div>
 
+
             <div className="dashboard-chart-card">
                 <div className="chart-header">
-                    <h2>Human vs Model Accuracy</h2>
-                    <p>Compare participant performance with the AI model.</p>
+                    <h2>השוואת ביצועי המשתתפים למודל EfficientNet-B0</h2>
+                    <p>השוואה בין דיוק המשתתפים לבין מודל הלמידה</p>
                 </div>
 
                 <div className="chart-wrapper">
                     <div className="simple-bar-chart">
                         <div className="bar-item">
-                            <span>Human</span>
+                            <span>משתתפים</span>
                             <div className="bar-track">
                                 <div
                                     className="bar-fill"
@@ -111,7 +116,7 @@ function AdminDashboard({ onLogout }) {
                         </div>
 
                         <div className="bar-item">
-                            <span>Model</span>
+                            <span>מודל</span>
                             <div className="bar-track">
                                 <div
                                     className="bar-fill"
