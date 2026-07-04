@@ -155,27 +155,18 @@ function Questionnaire({ participantId, onFinish }) {
                 <div className="scale-guide">
 
                     <div className="scale-end">
+                        <span className="scale-number">1</span>
+                        <span className="scale-text">לא מסכים בכלל</span>
+                    </div>
 
-        <span className="scale-number">
-            1
-        </span>
-
-                        <span className="scale-text">
-            לא מסכים בכלל
-        </span>
-
+                    <div className="scale-middle">
+                        <span className="scale-number">3</span>
+                        <span className="scale-text">ניטרלי</span>
                     </div>
 
                     <div className="scale-end">
-
-        <span className="scale-number">
-            5
-        </span>
-
-                        <span className="scale-text">
-            מסכים בהחלט
-        </span>
-
+                        <span className="scale-number">5</span>
+                        <span className="scale-text">מסכים בהחלט</span>
                     </div>
 
                 </div>

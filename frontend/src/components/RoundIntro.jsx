@@ -18,7 +18,7 @@ function RoundIntro({ round, onNext }) {
                 </h1>
 
                 <h2 className="round-subtitle">
-                    {round === 1 ? "עם הגבלת זמן" : "ללא הגבלת זמן"}
+                    {round === 1 ? "מוגבל בזמן" : "ללא הגבלת זמן"}
                 </h2>
 
                 <p className="round-description">

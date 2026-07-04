@@ -13,6 +13,8 @@ function OpenQuestion({ participantId, answers, onContinue }) {
             ? Math.round((totalCorrect / answers.length) * 100)
             : 0;
 
+    const charCount = feedback.length;
+
     const handleContinue = async () => {
 
         setLoading(true);
@@ -50,12 +52,12 @@ function OpenQuestion({ participantId, answers, onContinue }) {
 
             <div className="feedback-card">
 
-                <h1 className="summary-title">
+                <h1 className="feedback-summary-title">
                     סיימתם את חלק זיהוי התמונות! 🎉
                 </h1>
 
                 <p className="summary-intro">
-                    לפניכם סיכום קצר של הביצועים שלכם.
+                    להלן תוצאות הזיהוי שלכם
                 </p>
 
                 <div className="summary-score">
@@ -70,11 +72,7 @@ function OpenQuestion({ participantId, answers, onContinue }) {
 
                 </div>
 
-                <p className="summary-rate">
-                    אחוז הצלחה: {successRate}%
-                </p>
 
-                <div className="summary-divider"></div>
 
                 <h2 className="feedback-question">
                     נשמח לשמוע את דעתכם
@@ -93,8 +91,24 @@ function OpenQuestion({ participantId, answers, onContinue }) {
                     className="feedback-textarea"
                     placeholder="לדוגמה: העיניים, הידיים, התאורה, הרקע או כל מאפיין אחר..."
                     value={feedback}
-                    onChange={(e) => setFeedback(e.target.value)}
+                    onChange={(e) => {
+
+                        const text = e.target.value;
+
+                        if (text.length <= 300) {
+                            setFeedback(text);
+                        }
+
+                    }}
                 />
+
+                <div className="word-counter">
+                    {charCount} / 300 תווים
+                </div>
+
+                <p className="next-step-note">
+                    עוד שלב אחד קטן ומסיימים 😊
+                </p>
 
                 <button
                     className="primary-btn"

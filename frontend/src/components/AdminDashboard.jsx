@@ -40,7 +40,7 @@ function AdminDashboard({ onLogout }) {
         <div className="admin-dashboard-page">
             <div className="dashboard-header">
                 <div>
-                    <h1>דשבורד המחקר</h1>
+                    <h1>לוח הבקרה</h1>
                     <p>סקירה כללית של תוצאות הניסוי ונתוני המשתתפים</p>
                 </div>
 

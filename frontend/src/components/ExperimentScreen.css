@@ -65,14 +65,14 @@
 
 .timer-number {
     color: #7c6cff;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
 }
 
 .timer-label {
     margin-top: 2px;
     color: #2f3545;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
     direction: rtl;
 }

@@ -15,7 +15,7 @@ function SummaryScreen() {
 
         const timer = setTimeout(() => {
             setShowConfetti(false);
-        }, 3000);
+        }, 6000);
 
         return () => clearTimeout(timer);
 
@@ -60,7 +60,6 @@ function SummaryScreen() {
                     <br />
                     שנוצרו באמצעות בינה מלאכותית
                     <br />
-                    בינה מלאכותית
                 </p>
 
                 <p className="summary-description second">

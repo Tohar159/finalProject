@@ -73,7 +73,6 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
         setIsSubmitting(true);
 
         const responseTimeSeconds = (Date.now() - imageStartTime) / 1000;
-
         try {
             const response = await fetch("https://deepfake-backend-ki3i.onrender.com/answers/check", {
                 method: "POST",
@@ -140,10 +139,10 @@ function ExperimentScreen({ round, participantId, onFinishRound }) {
                 <div className="sparkle sparkle-two">✦</div>
 
                 <div className="brand-title">
-                    Real or <span>Fake?</span>
+                    Real or <span>Fake</span>
                 </div>
 
-                <div className="brand-subtitle">Can you beat AI?</div>
+                <div className="brand-subtitle">? Can you beat AI</div>
 
                 <div className="brand-underline"></div>
             </div>
