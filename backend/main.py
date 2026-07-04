@@ -295,6 +295,10 @@ def save_personality_answers(request: PersonalityAnswersRequest):
                         :question_number,
                         :answer
                     )
+                    ON CONFLICT (participant_id, question_number)
+                    DO UPDATE SET
+                        answer = EXCLUDED.answer,
+                        created_at = CURRENT_TIMESTAMP
                 """),
                 {
                     "participant_id": answer.participant_id,
