@@ -159,17 +159,5 @@
     font-weight: 700;
 }
 
-@media (max-width: 600px) {
 
-    .start-page {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-    }
 
-    .admin-corner-btn {
-        top: 58px;
-        right: 14px;
-    }
-
-}
