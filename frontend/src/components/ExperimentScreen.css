@@ -471,7 +471,7 @@
         .experiment-card {
             width: 100%;
             max-width: none;
-            flex: 1;
+            height: auto;
             padding: 18px 22px 22px;
             border-radius: 24px;
             display: flex;

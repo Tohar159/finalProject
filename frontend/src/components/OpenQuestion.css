@@ -126,7 +126,9 @@
 @media (max-width: 700px) {
 
     .feedback-summary-title {
-        font-size: 34px;
+        font-size: 28px;
+        line-height: 1.2;
+        margin-bottom: 14px;
     }
 
     .score-number {

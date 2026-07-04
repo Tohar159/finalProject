@@ -53,7 +53,7 @@ function OpenQuestion({ participantId, answers, onContinue }) {
             <div className="feedback-card">
 
                 <h1 className="feedback-summary-title">
-                    סיימתם את חלק זיהוי התמונות! 🎉
+                    סיימתם את חלק זיהוי התמונות!
                 </h1>
 
                 <p className="summary-intro">

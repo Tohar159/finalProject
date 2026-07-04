@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Questionnaire.css";
 
 const questions = [
@@ -40,6 +40,13 @@ function Questionnaire({ participantId, onFinish }) {
 
     const [page, setPage] = useState(0);
     const [answers, setAnswers] = useState({});
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, [page]);
 
     const start = page * QUESTIONS_PER_PAGE;
     const end = start + QUESTIONS_PER_PAGE;

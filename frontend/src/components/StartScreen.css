@@ -158,3 +158,13 @@
     color: #374151;
     font-weight: 700;
 }
+
+@media (max-width: 600px) {
+
+    .start-page {
+        height: 100dvh;
+        overflow: hidden;
+        touch-action: none;
+    }
+
+}

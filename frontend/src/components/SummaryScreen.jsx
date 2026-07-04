@@ -15,7 +15,7 @@ function SummaryScreen() {
 
         const timer = setTimeout(() => {
             setShowConfetti(false);
-        }, 6000);
+        }, 8000);
 
         return () => clearTimeout(timer);
 
