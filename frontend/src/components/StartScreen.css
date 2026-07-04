@@ -167,4 +167,9 @@
         overflow: hidden;
     }
 
+    .admin-corner-btn {
+        top: 58px;
+        right: 14px;
+    }
+
 }
