@@ -162,9 +162,9 @@
 @media (max-width: 600px) {
 
     .start-page {
-        height: 100dvh;
+        position: fixed;
+        inset: 0;
         overflow: hidden;
-        touch-action: none;
     }
 
 }
