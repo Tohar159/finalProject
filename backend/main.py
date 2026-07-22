@@ -316,44 +316,115 @@ def save_personality_answers(request: PersonalityAnswersRequest):
 @app.get("/admin/stats")
 def get_admin_stats():
     with engine.connect() as conn:
+
         participants_count = conn.execute(text("""
-            SELECT COUNT(*) FROM participants
+            SELECT COUNT(*)
+            FROM (
+                SELECT participant_id
+                FROM answers
+                GROUP BY participant_id
+                HAVING COUNT(*) = 20
+            ) AS valid_participants
         """)).scalar()
+
 
         answers_count = conn.execute(text("""
-            SELECT COUNT(*) FROM answers
+            SELECT COUNT(*)
+            FROM answers
+            WHERE participant_id IN (
+                SELECT participant_id
+                FROM answers
+                GROUP BY participant_id
+                HAVING COUNT(*) = 20
+            )
         """)).scalar()
 
+
         result = conn.execute(text("""
-            SELECT 
-                ROUND(AVG(CASE WHEN is_correct THEN 1 ELSE 0 END) * 100, 2) AS accuracy,
-                ROUND(AVG(confidence), 2) AS avg_confidence,
-                ROUND(AVG(response_time_seconds), 2) AS avg_response_time
+            SELECT
+                ROUND(
+                    AVG(CASE WHEN is_correct THEN 1 ELSE 0 END) * 100,
+                    2
+                ) AS accuracy,
+
+                ROUND(
+                    AVG(confidence),
+                    2
+                ) AS avg_confidence,
+
+                ROUND(
+                    AVG(response_time_seconds),
+                    2
+                ) AS avg_response_time
+
             FROM answers
+
+            WHERE participant_id IN (
+                SELECT participant_id
+                FROM answers
+                GROUP BY participant_id
+                HAVING COUNT(*) = 20
+            )
         """)).fetchone()
 
+
         accuracy_by_round = conn.execute(text("""
-            SELECT 
+            SELECT
                 round_number,
-                ROUND(AVG(CASE WHEN is_correct THEN 1 ELSE 0 END) * 100, 2) AS accuracy
+
+                ROUND(AVG(CASE WHEN is_correct THEN 1 ELSE 0 END) * 100,2)
+                 AS accuracy
+
             FROM answers
+
+            WHERE participant_id IN (
+                SELECT participant_id
+                FROM answers
+                GROUP BY participant_id
+                HAVING COUNT(*) = 20
+            )
+
             GROUP BY round_number
             ORDER BY round_number
         """)).fetchall()
 
+
         model_accuracy = conn.execute(text("""
             SELECT
-                ROUND(AVG(CASE WHEN model_correct THEN 1 ELSE 0 END) * 100, 2)
+                ROUND(
+                    AVG(CASE WHEN model_correct THEN 1 ELSE 0 END) * 100,2)
             FROM images
+            WHERE model_correct IS NOT NULL
         """)).scalar()
 
     return {
-        "participants_count": participants_count,
-        "answers_count": answers_count,
-        "accuracy": float(result.accuracy) if result.accuracy is not None else 0,
-        "avg_confidence": float(result.avg_confidence) if result.avg_confidence is not None else 0,
-        "avg_response_time": float(result.avg_response_time) if result.avg_response_time is not None else 0,
-        "model_accuracy": float(model_accuracy) if model_accuracy is not None else 0,
+        "participants_count": participants_count or 0,
+        "answers_count": answers_count or 0,
+
+        "accuracy": (
+            float(result.accuracy)
+            if result and result.accuracy is not None
+            else 0
+        ),
+
+        "avg_confidence": (
+            float(result.avg_confidence)
+            if result and result.avg_confidence is not None
+            else 0
+        ),
+
+        "avg_response_time": (
+            float(result.avg_response_time)
+            if result and result.avg_response_time is not None
+            else 0
+        ),
+
+        "model_accuracy": (
+            float(model_accuracy)
+            if model_accuracy is not None
+            else 0
+        ),
+
         "accuracy_by_round": [
             {
                 "round": row.round_number,
